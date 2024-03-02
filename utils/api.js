@@ -27,11 +27,9 @@ export const configureAxiosHeader = async (token) => {
 
 export const postLogin = async(email, password) => {
     const { data } = await sonataApi.post(`/auth/login`, { email, password });
-    console.log(data);
     return data;
 }
 export const getLessons = async() => {
-    const { data } = await sonataApi.get('/lessons');
-    console.log(data.lessons);
+    const { data } = await sonataApi.get('/lessons/notes');
     return data.lessons;
 }

@@ -42,7 +42,10 @@ const Home = () => {
             />
             <Card.Content>
               <Title>Brass Lesson</Title>
-              <Paragraph>Render Lesson notes here</Paragraph>
+              {
+                item.notes.map((note) => (<Paragraph>{note.notes}</Paragraph>))
+              }
+              
             </Card.Content>
             <Card.Cover source={{ uri: 'https://picsum.photos/500/400' }} />
             <Card.Actions>
