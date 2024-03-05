@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, FlatList } from 'react-native';
-import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
+import { Avatar, Button, Card, Title, Paragraph, List } from 'react-native-paper';
 import { getLessons } from '../../utils/api';
 
 const LeftContent = props => <Avatar.Icon {...props} icon="bugle" />;
@@ -32,22 +32,25 @@ const Home = () => {
     <View style={styles.container}>
       <FlatList
         data={lessons}
-        keyExtractor={(item) => item.lesson_id.toString()}
+        keyExtractor={(item) => item.lesson_id}
         renderItem={({ item }) => (
           <Card style={styles.card}>
             <Card.Title
-              title={item.lesson_id}
+              title={`Lesson ${item.lesson_id}`}
               subtitle={new Date(item.lesson_timestamp).toLocaleDateString()}
               left={LeftContent}
             />
             <Card.Content>
               <Title>Brass Lesson</Title>
-              {
-                item.notes.map((note) => (<Paragraph>{note.notes}</Paragraph>))
-              }
+              <List.Section>
+                <List.Subheader>Some title</List.Subheader>
+                {
+                    item.notes.map((note) => (<List.Item key={note.note_id} title={note.learning_focus} left={() => <List.Icon icon="folder" />} />))
+                }
+            </List.Section>
+
               
             </Card.Content>
-            <Card.Cover source={{ uri: 'https://picsum.photos/500/400' }} />
             <Card.Actions>
               <Button>Cancel</Button>
               <Button>Ok</Button>
