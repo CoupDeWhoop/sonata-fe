@@ -1,28 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, FlatList } from 'react-native';
 import { Avatar, Button, Card, Title, Paragraph, List } from 'react-native-paper';
-import { getLessons } from '../../utils/api';
+import { configureAxiosHeader, getLessons, refreshTokens, setTokens } from '../../utils/api';
 
 const LeftContent = props => <Avatar.Icon {...props} icon="bugle" />;
 
 const Home = () => {
   const [lessons, setLessons] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState();
 
   useEffect(() => {
-    const lessonsApiCall = async () => {
+    const lessonsApiCall = async() => {
       try {
         const result = await getLessons();
         setLessons(result);
         setLoading(false);
       } catch (error) {
-        console.log(error);
-        setLoading(false);
-        setError(error);
+        console.log(error.message);
+        if (error.response && error.response.status === 403) {
+          try {
+            const { tokens } = await refreshTokens();
+            await setTokens(tokens.accessToken, tokens.refreshToken)
+            configureAxiosHeader(tokens.accessToken)
+
+            const result = await getLessons();
+            setLessons(result);
+            setLoading(false);
+          } catch (refreshError) {
+            console.error('Refresh token error:', refreshError.message);
+            setLoading(false);
+            setError(refreshError);
+          }
+        } else {
+          setLoading(false);
+          setError(error);
+        }
       }
     };
-
     lessonsApiCall();
   }, []);
 

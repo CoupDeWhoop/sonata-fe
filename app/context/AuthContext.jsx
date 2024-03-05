@@ -1,8 +1,10 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { Platform } from 'react-native'
+            import JWT from 'expo-jwt';
 import axios from "axios";
+
 import * as SecureStore from 'expo-secure-store';
-import { configureAxiosHeader, postLogin, sonataApi, getTokens, setTokens, deleteTokens } from "../../utils/api";
+import { configureAxiosHeader, postLogin, sonataApi, getTokens, setTokens, deleteTokens, refreshTokens, checkTokenisExpired } from "../../utils/api";
 export const API_URL = 'https://sonata-gj0z.onrender.com/api';
 const AuthContext = createContext({});
 
@@ -13,6 +15,7 @@ export const useAuth = () => { // we can use this just like a hook in other page
 export const AuthProvider = ({ children }) => {
     const [authState, setAuthState] = useState({
         accessToken: null,
+        refreshToken:null,
         authenticated: null
     })
 
@@ -21,16 +24,24 @@ export const AuthProvider = ({ children }) => {
             
             const tokens = await getTokens()
             console.log('stored:', tokens.accessToken, tokens.refreshToken);
+            configureAxiosHeader(tokens.accessToken);
+            setAuthState({
+                accessToken: tokens.accessToken,
+                refreshToken: tokens.refreshToken,
+                authenticated: true,
+            });
         
 
-            if (tokens) {
-                const header = await configureAxiosHeader();
-                setAuthState({
-                    accessToken: tokens.accessToken,
-                    refreshToken: tokens.refreshToken,
-                    authenticated: true,
-                });
-            }
+            // if (tokens) {
+            //         const newTokens = await refreshTokens(tokens.refreshToken);
+            //         await configureAxiosHeader(newTokens.accessToken);
+            //         setAuthState({
+            //             accessToken: newTokens.accessToken,
+            //             refreshToken: newTokens.refreshToken,
+            //             authenticated: true,
+            //         });
+
+            // }
         };
         loadTokens(); 
     }, []);
