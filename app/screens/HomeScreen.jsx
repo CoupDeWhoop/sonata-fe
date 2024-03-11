@@ -5,7 +5,7 @@ import { configureAxiosHeader, getLessons, refreshTokens, setTokens } from '../.
 
 const LeftContent = props => <Avatar.Icon {...props} icon="bugle" />;
 
-const Home = () => {
+const HomeScreen = () => {
   const [lessons, setLessons] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
@@ -87,4 +87,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default HomeScreen;

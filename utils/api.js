@@ -40,7 +40,7 @@ export const deleteTokens = async() => {
     await SecureStore.deleteItemAsync(ACCESS_TOKEN_KEY);
     await SecureStore.deleteItemAsync(REFRESH_TOKEN_KEY);
 }
-//ssssssssssjbkb
+
 export const checkTokenExpired = (token) => {
     return jwt_decode(token)
 }
@@ -51,4 +51,9 @@ export const postLogin = async(email, password) => {
 export const getLessons = async() => {
     const { data } = await sonataApi.get('/lessons/notes');
     return data.lessons;
+}
+
+export const getPractices = async() => {
+    const { data } = await sonataApi.get('/practises');
+    return data.practises;
 }
