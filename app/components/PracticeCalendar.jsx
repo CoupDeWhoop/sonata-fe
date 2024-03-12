@@ -12,7 +12,7 @@ export default PracticeCalendar= ({ practises }) => {
             <CalendarHeatmap
                 endDate={Date.now()}
                 numDays={80}
-                colorArray={["#FCE4EC", "#D44B79", "#6B1928", "#9F3251", "#6B1928"]}
+                colorArray={["#FCE4EC", "#D44B79", "#6B1928", "#9F3251", "#360000"]}
                 values={formattedPracticeData}
             />
         </ScrollView>

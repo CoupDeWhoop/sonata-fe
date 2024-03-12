@@ -45,23 +45,20 @@ export default PracticeScreen = () => {
     if (loading) return <Paragraph>Wait</Paragraph>;
 
     return (
-        <ScrollView contentContainerStyle={styles.container}>
-            {
+        <View style={commonStyles.layout}>
+            <ScrollView >
+                {
 
-                practises.map((practice) => (
-                    <PracticeCard key={practice.practice_id} notes={practice.notes} timestamp={practice.practice_timestamp} duration={practice.duration}/>
-                ))
-            }
-            <View>
-                <Title>Nivo Calendar</Title>
-                <PracticeCalendar practises={practises}/>
-            </View>
-        </ScrollView>
+                    practises.map((practice) => (
+                        <PracticeCard key={practice.practice_id} notes={practice.notes} timestamp={practice.practice_timestamp} duration={practice.duration}/>
+                    ))
+                }
+                <View>
+                    <Title>Calendar</Title>
+                    <PracticeCalendar practises={practises}/>
+                </View>
+            </ScrollView>
+        </View>
+
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        padding: 16
-    }
-})

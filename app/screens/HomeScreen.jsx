@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, FlatList } from 'react-native';
-import { Avatar, Button, Card, Title, Paragraph, List } from 'react-native-paper';
-import { commonStyles } from '../../styles/common-styles';
+import { StyleSheet, View, ScrollView, FlatList } from 'react-native';
+import { Avatar, Button, Card, Title, Text, Paragraph, List } from 'react-native-paper';
 import { configureAxiosHeader, getLessons, refreshTokens, setTokens } from '../../utils/api';
 
 const LeftContent = props => <Avatar.Icon {...props} icon="bugle" />;
@@ -42,50 +41,57 @@ const HomeScreen = () => {
     lessonsApiCall();
   }, []);
 
+const LearningFocusCard = ({ learningFocus }) => (
+  <Card style={styles.focusCard}>
+    <Card.Content>
+      <Text variant="titleLarge" >{learningFocus}</Text>
+    </Card.Content>
+  </Card>
+)
+
   if (loading) return <Text>Wait</Text>;
 
   return (
-    <View style={commonStyles.layout}>
-      <FlatList
+    <View style={styles.screenContainer}>
+      <Text variant='titleLarge'>Recent lesson focus points</Text>
+      <FlatList 
+        horizontal={true}
         data={lessons}
         keyExtractor={(item) => item.lesson_id}
-        renderItem={({ item }) => (
+        renderItem={( {item }) => item.notes.map((note) => <LearningFocusCard key={note.note_id}learningFocus={note.learning_focus} />)}
+      />
+      <FlatList 
+        contentContainerStyle={{marginTop:16}}
+        data={lessons}
+        keyExtractor={(item) => item.lesson_id}
+        renderItem={( {item }) => (
           <Card style={styles.card}>
-            <Card.Title
-              title={`Lesson ${item.lesson_id}`}
-              subtitle={new Date(item.lesson_timestamp).toLocaleDateString()}
-              left={LeftContent}
-            />
-            <Card.Content>
-              <Title>Brass Lesson</Title>
-              <List.Section>
-                <List.Subheader>Some title</List.Subheader>
-                {
-                    item.notes.map((note) => (<List.Item key={note.note_id} title={note.learning_focus} left={() => <List.Icon icon="folder" />} />))
-                }
-            </List.Section>
-
-              
-            </Card.Content>
-            <Card.Actions>
-              <Button>Cancel</Button>
-              <Button>Ok</Button>
-            </Card.Actions>
-          </Card>
-        )}
+          <Card.Title
+              title="Lesson"
+              subtitle={`${item.duration} min`}
+              left={(props) => <Avatar.Icon {...props} icon="bugle" />}
+              right={() => <Text>{new Date(item.lesson_timestamp).toLocaleTimeString("en-GB", { hour: '2-digit', minute: '2-digit' })}</Text>}
+              rightStyle={{paddingRight: 16}}
+          />
+      </Card>
+          )}
       />
     </View>
+
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  screenContainer: {
     padding: 16,
   },
   card: {
+    margin: 2,
     marginBottom: 16,
   },
+  focusCard: {
+    margin: 2,
+  }
 });
 
 export default HomeScreen;
