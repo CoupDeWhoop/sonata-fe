@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { View } from 'react-native';
-import { getPractices, configureAxiosHeader, refreshTokens, setTokens  } from '../../utils/api';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import { getPractises, configureAxiosHeader, refreshTokens, setTokens  } from '../../utils/api';
 import { Paragraph, Title } from 'react-native-paper';
+import { commonStyles } from '../../styles/common-styles';
 import PracticeCalendar from '../components/PracticeCalendar';
+import PracticeCard from '../components/PracticeCard';
 
 export default PracticeScreen = () => {
     const [practises, setPractises] = useState([]);
@@ -10,9 +12,9 @@ export default PracticeScreen = () => {
     const [error, setError] = useState();
 
     useEffect(() => {
-        const practicesApiCall = async() => {
+        const practisesApiCall = async() => {
             try {
-                const result = await getPractices()
+                const result = await getPractises()
                 setPractises(result);
                 setLoading(false)
             } catch (error) {
@@ -22,8 +24,7 @@ export default PracticeScreen = () => {
                     const { tokens } = await refreshTokens();
                     await setTokens(tokens.accessToken, tokens.refreshToken)
                     configureAxiosHeader(tokens.accessToken)
-        
-                    const result = await getPractices();
+                    const result = await getPractises();
                     setPractises(result);
                     setLoading(false);
                   } catch (refreshError) {
@@ -38,25 +39,29 @@ export default PracticeScreen = () => {
             }
         }
 
-        practicesApiCall()
+        practisesApiCall()
     }, [])
 
     if (loading) return <Paragraph>Wait</Paragraph>;
 
     return (
-        <View>
+        <ScrollView contentContainerStyle={styles.container}>
             {
-                practises.map((practice, index) => (
-                    <View key={index}>
-                        <Title>{practice.practice_id}</Title>
-                        <Paragraph>{practice.practice_timestamp}</Paragraph>
-                    </View>
+
+                practises.map((practice) => (
+                    <PracticeCard key={practice.practice_id} notes={practice.notes} timestamp={practice.practice_timestamp} duration={practice.duration}/>
                 ))
             }
-            <View style={{ width: 400}}>
+            <View>
                 <Title>Nivo Calendar</Title>
-                <PracticeCalendar />
+                <PracticeCalendar practises={practises}/>
             </View>
-        </View>
+        </ScrollView>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        padding: 16
+    }
+})

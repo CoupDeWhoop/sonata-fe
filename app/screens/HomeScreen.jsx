@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, FlatList } from 'react-native';
 import { Avatar, Button, Card, Title, Paragraph, List } from 'react-native-paper';
+import { commonStyles } from '../../styles/common-styles';
 import { configureAxiosHeader, getLessons, refreshTokens, setTokens } from '../../utils/api';
 
 const LeftContent = props => <Avatar.Icon {...props} icon="bugle" />;
@@ -44,7 +45,7 @@ const HomeScreen = () => {
   if (loading) return <Text>Wait</Text>;
 
   return (
-    <View style={styles.container}>
+    <View style={commonStyles.layout}>
       <FlatList
         data={lessons}
         keyExtractor={(item) => item.lesson_id}

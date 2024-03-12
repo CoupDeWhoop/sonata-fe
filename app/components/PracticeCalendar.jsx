@@ -3,17 +3,18 @@ import { ScrollView } from 'react-native'
 import { data } from '../../data/practice-data.js'
 import { staticData } from '../../data/static-data.js'
 
-export default PracticeCalendar= () => {
-    //API call for data then adapt for chart
+export default PracticeCalendar= ({ practises }) => {
+    const formattedPracticeData = practises.map((practice) => {
+        return {date: practice.practice_timestamp}
+    })
     return (
-        <ScrollView horizontal={true}>
+        <ScrollView horizontal={true} contentContainerStyle={{ paddingLeft: 16, }}>
             <CalendarHeatmap
-                endDate={new Date("2019-03-25")}
-                numDays={100}
-                colorArray={["#FCE4EC", "#D44B79", "#6B1928", "#9F3251", "#360000"]}
-                values={staticData}
+                endDate={Date.now()}
+                numDays={80}
+                colorArray={["#FCE4EC", "#D44B79", "#6B1928", "#9F3251", "#6B1928"]}
+                values={formattedPracticeData}
             />
         </ScrollView>
     )
-//ssss
 }

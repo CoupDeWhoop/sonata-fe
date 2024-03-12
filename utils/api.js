@@ -53,7 +53,7 @@ export const getLessons = async() => {
     return data.lessons;
 }
 
-export const getPractices = async() => {
+export const getPractises = async() => {
     const { data } = await sonataApi.get('/practises');
     return data.practises;
 }
