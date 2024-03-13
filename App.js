@@ -6,14 +6,17 @@ import { SafeAreaProvider} from 'react-native-safe-area-context';
 import { AuthProvider, useAuth } from './app/context/AuthContext';
 import Login from './app/screens/Login';
 import { MainNavigator } from './app/navigation/MainNavigator';
+import { LessonModalProvider } from './app/context/LessonModalContext';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <AuthProvider>
-      <Layout></Layout>
-      <StatusBar style="auto" /> 
+      <LessonModalProvider>
+        <Layout></Layout>
+        <StatusBar style="auto" /> 
+      </LessonModalProvider>
     </AuthProvider>
   );
 }

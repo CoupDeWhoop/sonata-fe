@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { FlatList, StyleSheet, View, TouchableOpacity  } from 'react-native';
 import { Avatar, Card, Text } from 'react-native-paper';
 import { getLessons } from '../../utils/api';
+import { LessonModalContext } from '../context/LessonModalContext';
 
-const LessonsScreen = ({ navigation }) => {
+const LessonsScreen = () => {
+  const { lessonModalIsVisible, setLessonModalIsVisible } = useContext(LessonModalContext);
   const [lessons, setLessons] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
@@ -73,7 +75,7 @@ const LearningFocusCard = ({ learningFocus }) => (
             backgroundColor: '#000066', 
             borderRadius: 100, 
         }} 
-        onPress={() => { navigation.navigate('AddLesson') }} 
+        onPress={() =>  setLessonModalIsVisible(true)}
       > 
         <Text style={{ color: "white", fontSize: 24 }}>+</Text>
 
