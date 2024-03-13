@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View,  FlatList } from 'react-native';
+import { FlatList, StyleSheet, View, TouchableOpacity  } from 'react-native';
 import { Avatar, Card, Text } from 'react-native-paper';
 import { getLessons } from '../../utils/api';
 
@@ -39,6 +39,7 @@ const LearningFocusCard = ({ learningFocus }) => (
     <View style={styles.screenContainer}>
       <Text variant='titleLarge'>Recent lesson focus points</Text>
       <FlatList 
+        style={{flexGrow: 0}}
         horizontal={true}
         data={lessons}
         keyExtractor={(item) => item.lesson_id}
@@ -60,6 +61,26 @@ const LearningFocusCard = ({ learningFocus }) => (
       </Card>
           )}
       />
+      <TouchableOpacity 
+        style={{ 
+            borderWidth: 1, 
+            borderColor: '#000066', 
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            width: 70, 
+            position: 'absolute', 
+            bottom: 20, 
+            right: 20, 
+            height: 70, 
+            backgroundColor: '#000066', 
+            borderRadius: 100, 
+        }} 
+        onPress={() => { alert('Button is pressed') }} 
+      > 
+        <Text style={{ color: "white", fontSize: 24 }}>+</Text>
+
+      </TouchableOpacity> 
+
     </View>
 
   );
@@ -67,6 +88,7 @@ const LearningFocusCard = ({ learningFocus }) => (
 
 const styles = StyleSheet.create({
   screenContainer: {
+    flex: 1,
     padding: 16,
   },
   card: {
