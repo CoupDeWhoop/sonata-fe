@@ -11,34 +11,18 @@ const HomeScreen = () => {
   const [error, setError] = useState();
 
   useEffect(() => {
-    const lessonsApiCall = async() => {
+    const fetchLessons = async () => {
       try {
         const result = await getLessons();
         setLessons(result);
         setLoading(false);
       } catch (error) {
-        console.log(error.message);
-        if (error.response && error.response.status === 403) {
-          try {
-            const { tokens } = await refreshTokens();
-            await setTokens(tokens.accessToken, tokens.refreshToken)
-            configureAxiosHeader(tokens.accessToken)
-
-            const result = await getLessons();
-            setLessons(result);
-            setLoading(false);
-          } catch (refreshError) {
-            console.error('Refresh token error:', refreshError.message);
-            setLoading(false);
-            setError(refreshError);
-          }
-        } else {
-          setLoading(false);
-          setError(error);
-        }
+        setLoading(false);
+        setError(error);
       }
     };
-    lessonsApiCall();
+  
+    fetchLessons();
   }, []);
 
 const LearningFocusCard = ({ learningFocus }) => (

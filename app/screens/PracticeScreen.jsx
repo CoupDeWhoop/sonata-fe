@@ -12,35 +12,19 @@ export default PracticeScreen = () => {
     const [error, setError] = useState();
 
     useEffect(() => {
-        const practisesApiCall = async() => {
-            try {
-                const result = await getPractises()
-                setPractises(result);
-                setLoading(false)
-            } catch (error) {
-                console.log(error.message);
-                if (error.response && error.response.status === 403) {
-                  try {
-                    const { tokens } = await refreshTokens();
-                    await setTokens(tokens.accessToken, tokens.refreshToken)
-                    configureAxiosHeader(tokens.accessToken)
-                    const result = await getPractises();
-                    setPractises(result);
-                    setLoading(false);
-                  } catch (refreshError) {
-                    console.error('Refresh token error:', refreshError.message);
-                    setLoading(false);
-                    setError(refreshError);
-                  }
-                } else {
-                  setLoading(false);
-                  setError(error);
-                }
-            }
-        }
-
-        practisesApiCall()
-    }, [])
+        const fetchPractises = async () => {
+          try {
+            const result = await getPractises();
+            setPractises(result);
+            setLoading(false);
+          } catch (error) {
+            setLoading(false);
+            setError(error);
+          }
+        };
+      
+        fetchPractises();
+      }, []);
 
     if (loading) return <Paragraph>Wait</Paragraph>;
 

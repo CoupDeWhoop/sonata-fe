@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { useContext } from 'react'
 import { Platform } from 'react-native';
-// import jwt_decode from 'jwt-decode'
 import * as SecureStore from 'expo-secure-store';
 const ACCESS_TOKEN_KEY = 'my-access-jwt';
 const REFRESH_TOKEN_KEY = 'my-refresh-jwt';
@@ -24,6 +23,29 @@ export const getTokens = async () => {
     };
 };
 
+export const handleTokenRefresh = async (apiCall) => {
+    try {
+      const result = await apiCall();
+      return result;
+    } catch (error) {
+      console.log(error.message);
+      if (error.response && error.response.status === 403) {
+        try {
+          const { tokens } = await refreshTokens();
+          await setTokens(tokens.accessToken, tokens.refreshToken);
+          configureAxiosHeader(tokens.accessToken);
+          const result = await apiCall();
+          return result;
+        } catch (refreshError) {
+          console.error('Refresh token error:', refreshError.message);
+          throw refreshError;
+        }
+      } else {
+        throw error;
+      }
+    }
+};
+
 export const refreshTokens = async () => {
     const { refreshToken } = await getTokens();
     console.log(refreshToken)
@@ -41,19 +63,20 @@ export const deleteTokens = async() => {
     await SecureStore.deleteItemAsync(REFRESH_TOKEN_KEY);
 }
 
-export const checkTokenExpired = (token) => {
-    return jwt_decode(token)
-}
 export const postLogin = async(email, password) => {
     const { data } = await sonataApi.post(`/auth/login`, { email, password });
     return data;
 }
-export const getLessons = async() => {
-    const { data } = await sonataApi.get('/lessons/notes');
-    return data.lessons;
-}
-
-export const getPractises = async() => {
-    const { data } = await sonataApi.get('/practises');
-    return data.practises;
-}
+export const getLessons = async () => {
+    return handleTokenRefresh(async () => {
+      const { data } = await sonataApi.get('/lessons/notes');
+      return data.lessons;
+    });
+  };
+  
+  export const getPractises = async () => {
+    return handleTokenRefresh(async () => {
+      const { data } = await sonataApi.get('/practises');
+      return data.practises;
+    });
+  };
