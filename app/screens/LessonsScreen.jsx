@@ -54,7 +54,7 @@ const LearningFocusCard = ({ learningFocus }) => (
           <Card.Title
               title="Lesson"
               subtitle={`${item.duration} min`}
-              left={(props) => <Avatar.Icon {...props} icon="bugle" />}
+              left={(props) => <Avatar.Icon {...props} icon="bugle" backgroundColor='pink'/>}
               right={() => <Text>{new Date(item.lesson_timestamp).toLocaleTimeString("en-GB", { hour: '2-digit', minute: '2-digit' })}</Text>}
               rightStyle={{paddingRight: 16}}
           />
@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
   card: {
     margin: 2,
     marginBottom: 16,
+    backgroundColor: 'white'
   },
   focusCard: {
     margin: 2,

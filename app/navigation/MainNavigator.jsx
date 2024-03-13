@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { LessonsStack } from './LessonsStack.jsx';
 import AddLessonModal from '../screens/AddLesson.jsx';
 import { LessonModalContext } from '../context/LessonModalContext.jsx';
+import { View } from 'react-native';
 
 
 
@@ -13,10 +14,9 @@ const Tab = createBottomTabNavigator();
 
 export const MainNavigator = () => {
     const { lessonModalIsVisible, setLessonModalIsVisible } = useContext(LessonModalContext);
-    console.log(lessonModalIsVisible)
 
     return (
-        <>
+        <View style={{flex: 1}}>
             <Tab.Navigator screenOptions={{
                 headerShown: false,
                 tabBarLabelStyle:{
@@ -47,6 +47,6 @@ export const MainNavigator = () => {
                     }} />
             </Tab.Navigator>
             <AddLessonModal visible={lessonModalIsVisible} onClose={() => setLessonModalIsVisible(false)} />
-        </>
+        </View>
     );
 }
