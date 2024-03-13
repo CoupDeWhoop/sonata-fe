@@ -5,7 +5,7 @@ import { getLessons } from '../../utils/api';
 
 const LeftContent = props => <Avatar.Icon {...props} icon="bugle" />;
 
-const HomeScreen = () => {
+const LessonsScreen = () => {
   const [lessons, setLessons] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
@@ -104,4 +104,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default HomeScreen;
+export default LessonsScreen;

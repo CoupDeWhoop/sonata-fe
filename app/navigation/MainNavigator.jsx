@@ -3,6 +3,7 @@ import PracticeScreen from '../screens/PracticeScreen.jsx';
 import StatsScreen from '../screens/StatsScreen.jsx';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { LessonsStack } from './LessonsStack.jsx';
 
 
 
@@ -16,7 +17,7 @@ export const MainNavigator = () => (
         }
         }} 
         >
-        <Tab.Screen name="Home" component={HomeScreen}         
+        <Tab.Screen name="Home" component={LessonsStack}         
         options={{
             tabBarLabel: 'Home',
             tabBarIcon: ({ color }) => (
