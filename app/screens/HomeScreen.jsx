@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, ScrollView, FlatList } from 'react-native';
-import { Avatar, Button, Card, Title, Text, Paragraph, List } from 'react-native-paper';
-import { configureAxiosHeader, getLessons, refreshTokens, setTokens } from '../../utils/api';
+import { StyleSheet, View,  FlatList } from 'react-native';
+import { Avatar, Card, Text } from 'react-native-paper';
+import { getLessons } from '../../utils/api';
 
 const LeftContent = props => <Avatar.Icon {...props} icon="bugle" />;
 
