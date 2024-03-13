@@ -28,7 +28,7 @@ const HomeScreen = () => {
 const LearningFocusCard = ({ learningFocus }) => (
   <Card style={styles.focusCard}>
     <Card.Content>
-      <Text variant="titleLarge" >{learningFocus}</Text>
+      <Text variant="labelLarge" >{learningFocus}</Text>
     </Card.Content>
   </Card>
 )
@@ -37,7 +37,7 @@ const LearningFocusCard = ({ learningFocus }) => (
 
   return (
     <View style={styles.screenContainer}>
-      <Text variant='titleLarge'>Recent lesson focus points</Text>
+      <Text variant='titleMedium' style={styles.heading}>Recent lesson focus points</Text>
       <FlatList 
         style={{flexGrow: 0}}
         horizontal={true}
@@ -90,6 +90,10 @@ const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
     padding: 16,
+  },
+  heading: {
+    paddingBottom: 8,
+    paddingLeft: 4
   },
   card: {
     margin: 2,
