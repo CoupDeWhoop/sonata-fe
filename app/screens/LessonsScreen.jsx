@@ -3,9 +3,7 @@ import { FlatList, StyleSheet, View, TouchableOpacity  } from 'react-native';
 import { Avatar, Card, Text } from 'react-native-paper';
 import { getLessons } from '../../utils/api';
 
-const LeftContent = props => <Avatar.Icon {...props} icon="bugle" />;
-
-const LessonsScreen = () => {
+const LessonsScreen = ({ navigation }) => {
   const [lessons, setLessons] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
@@ -75,7 +73,7 @@ const LearningFocusCard = ({ learningFocus }) => (
             backgroundColor: '#000066', 
             borderRadius: 100, 
         }} 
-        onPress={() => { alert('Button is pressed') }} 
+        onPress={() => { navigation.navigate('AddLesson') }} 
       > 
         <Text style={{ color: "white", fontSize: 24 }}>+</Text>
 

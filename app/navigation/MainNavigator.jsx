@@ -1,4 +1,3 @@
-import HomeScreen from '../screens/HomeScreen.jsx';
 import PracticeScreen from '../screens/PracticeScreen.jsx';
 import StatsScreen from '../screens/StatsScreen.jsx';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
