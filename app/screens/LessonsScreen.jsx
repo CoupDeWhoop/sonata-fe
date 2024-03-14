@@ -1,14 +1,34 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { FlatList, StyleSheet, View, TouchableOpacity  } from 'react-native';
 import { Avatar, Card, Text } from 'react-native-paper';
-import { getLessons } from '../../utils/api';
+import { getLessons, postLesson } from '../../utils/api';
 import { LessonModalContext } from '../context/LessonModalContext';
 import { LearningFocusList } from '../components/LearningFocusList';
 
+
+
+
 const LessonsScreen = () => {
-  const { lessonModalIsVisible, setLessonModalIsVisible, lessons, setLessons } = useContext(LessonModalContext);
+  const { 
+    lessonModalIsVisible, setLessonModalIsVisible, 
+    lessons, setLessons, 
+    setNewLesson
+  } = useContext(LessonModalContext);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
+
+  const handlePress = async() => {
+    try {
+      const timestamp = new Date().toISOString();
+      const newLesson = await postLesson(timestamp);
+      setNewLesson(newLesson);
+      setLessonModalIsVisible(true);
+    } catch (error) {
+      console.error('Error posting lesson:', error);
+      setError('Failed to post the lesson. Please try again later.');
+    }
+  }
 
   useEffect(() => {
     const fetchLessons = async () => {
@@ -62,7 +82,7 @@ const LessonsScreen = () => {
             backgroundColor: '#000066', 
             borderRadius: 100, 
         }} 
-        onPress={() =>  setLessonModalIsVisible(true)}
+        onPress={() =>  handlePress()}
       > 
         <Text style={{ color: "white", fontSize: 24 }}>+</Text>
       </TouchableOpacity> 

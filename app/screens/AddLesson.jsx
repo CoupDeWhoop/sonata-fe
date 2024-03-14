@@ -20,7 +20,7 @@ const NewLessonNote = () => {
 };
 
 const AddLessonModal = ({ visible, onClose }) => {
-  const {lessons} = useContext(LessonModalContext)
+  const { lessons, newLesson, setNewLesson } = useContext(LessonModalContext)
   useEffect(() => {
     if(visible) {
       StatusBar.setBackgroundColor('pink');
@@ -40,7 +40,7 @@ const AddLessonModal = ({ visible, onClose }) => {
           <View style={styles.modalContent}>
             <LearningFocusList lessons={lessons} />
             {/* Content for creating and saving a new lesson */}
-            <Text variant='titleMedium'>New Lesson</Text>
+            <Text variant='titleMedium'>{`${newLesson}`}</Text>
             <NewLessonNote />
             <View style={{flex: 1, borderWidth: 1, justifyContent: 'flex-end'}}>
               <Timer />

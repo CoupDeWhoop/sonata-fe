@@ -63,19 +63,28 @@ export const deleteTokens = async() => {
 }
 
 export const postLogin = async(email, password) => {
-    const { data } = await sonataApi.post(`/auth/login`, { email, password });
-    return data;
+  const { data } = await sonataApi.post(`/auth/login`, { email, password });
+  return data;
 }
 export const getLessons = async () => {
-    return handleTokenRefresh(async () => {
-      const { data } = await sonataApi.get('/lessons/notes');
-      return data.lessons;
-    });
-  };
+  return handleTokenRefresh(async () => {
+    const { data } = await sonataApi.get('/lessons/notes');
+    return data.lessons;
+  });
+};
   
-  export const getPractises = async () => {
-    return handleTokenRefresh(async () => {
-      const { data } = await sonataApi.get('/practises');
-      return data.practises;
-    });
-  };
+export const getPractises = async () => {
+  return handleTokenRefresh(async () => {
+    const { data } = await sonataApi.get('/practises');
+    return data.practises;
+  });
+};
+
+export const postLesson = async (timestamp) => {
+  return handleTokenRefresh(async () => {
+    const { data } = await sonataApi.post('/lessons',{timestamp: timestamp});
+    return data.lessons;
+  })
+}
+
+
