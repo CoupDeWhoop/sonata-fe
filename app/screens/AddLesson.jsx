@@ -1,9 +1,25 @@
-import React, { useEffect } from 'react';
-import { View, Modal, StyleSheet, Text, Button, StatusBar, Animated } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { View, Modal, StyleSheet, StatusBar } from 'react-native';
+import { Button, Text, TextInput } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { LearningFocusList } from '../components/LearningFocusList';
+import { LessonModalContext } from '../context/LessonModalContext';
+
+const NewLessonNote = () => {
+  const [text, setText] = useState("");
+
+  return (
+    <TextInput
+      label="Learning Focus"
+      value={text}
+      multiline={true}
+      onChangeText={text => setText(text)}
+    />
+  );
+};
 
 const AddLessonModal = ({ visible, onClose }) => {
-
+  const {lessons} = useContext(LessonModalContext)
   useEffect(() => {
     if(visible) {
       StatusBar.setBackgroundColor('pink');
@@ -21,13 +37,23 @@ const AddLessonModal = ({ visible, onClose }) => {
         onRequestClose={onClose}>
         <SafeAreaView style={styles.modalContainer}>
           <View style={styles.modalContent}>
+            <LearningFocusList lessons={lessons} />
             {/* Content for creating and saving a new lesson */}
-            <Text>New Lesson</Text>
-            <Button title="Close" onPress={onClose} />
+            <Text variant='titleMedium'>New Lesson</Text>
+            <NewLessonNote />
+            <View style={{flex: 1, borderWidth: 1, justifyContent: 'flex-end'}}>
+              <View style={styles.submitButtons}>
+                <Button mode="outlined" labelStyle={{fontSize: 12}} onPress={onClose}>
+                  Cancel
+                </Button>
+                <Button mode="contained" contentStyle={{width: 90}}labelStyle={{fontSize: 12}} onPress={() => console.log('Pressed')}>
+                  Done
+                </Button>
+              </View>
+            </View>
           </View>
         </SafeAreaView>
       </Modal>
-
   );
 };
 
@@ -46,6 +72,11 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderRadius: 10,
     elevation: 5,
+  },
+  submitButtons: {
+    flexDirection: 'row',
+    paddingVertical: 0,
+    justifyContent: 'space-evenly',
   },
 });
 

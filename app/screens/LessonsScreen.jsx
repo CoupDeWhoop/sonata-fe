@@ -3,10 +3,10 @@ import { FlatList, StyleSheet, View, TouchableOpacity  } from 'react-native';
 import { Avatar, Card, Text } from 'react-native-paper';
 import { getLessons } from '../../utils/api';
 import { LessonModalContext } from '../context/LessonModalContext';
+import { LearningFocusList } from '../components/LearningFocusList';
 
 const LessonsScreen = () => {
-  const { lessonModalIsVisible, setLessonModalIsVisible } = useContext(LessonModalContext);
-  const [lessons, setLessons] = useState([]);
+  const { lessonModalIsVisible, setLessonModalIsVisible, lessons, setLessons } = useContext(LessonModalContext);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
 
@@ -25,26 +25,13 @@ const LessonsScreen = () => {
     fetchLessons();
   }, []);
 
-const LearningFocusCard = ({ learningFocus }) => (
-  <Card style={styles.focusCard}>
-    <Card.Content>
-      <Text variant="labelLarge" >{learningFocus}</Text>
-    </Card.Content>
-  </Card>
-)
 
   if (loading) return <Text>Wait</Text>;
 
   return (
     <View style={styles.screenContainer}>
       <Text variant='titleMedium' style={styles.heading}>Recent lesson focus points</Text>
-      <FlatList 
-        style={{flexGrow: 0}}
-        horizontal={true}
-        data={lessons}
-        keyExtractor={(item) => item.lesson_id}
-        renderItem={( {item }) => item.notes.map((note) => <LearningFocusCard key={note.note_id}learningFocus={note.learning_focus} />)}
-      />
+      <LearningFocusList lessons={lessons} />
       <FlatList 
         contentContainerStyle={{marginTop:16}}
         data={lessons}
@@ -78,7 +65,6 @@ const LearningFocusCard = ({ learningFocus }) => (
         onPress={() =>  setLessonModalIsVisible(true)}
       > 
         <Text style={{ color: "white", fontSize: 24 }}>+</Text>
-
       </TouchableOpacity> 
 
     </View>
@@ -99,9 +85,6 @@ const styles = StyleSheet.create({
     margin: 2,
     marginBottom: 16,
     backgroundColor: 'white'
-  },
-  focusCard: {
-    margin: 2,
   }
 });
 
