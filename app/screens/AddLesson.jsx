@@ -4,6 +4,7 @@ import { Button, Text, TextInput } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LearningFocusList } from '../components/LearningFocusList';
 import { LessonModalContext } from '../context/LessonModalContext';
+import { Timer } from '../components/timer.jsx';
 
 const NewLessonNote = () => {
   const [text, setText] = useState("");
@@ -42,6 +43,7 @@ const AddLessonModal = ({ visible, onClose }) => {
             <Text variant='titleMedium'>New Lesson</Text>
             <NewLessonNote />
             <View style={{flex: 1, borderWidth: 1, justifyContent: 'flex-end'}}>
+              <Timer />
               <View style={styles.submitButtons}>
                 <Button mode="outlined" labelStyle={{fontSize: 12}} onPress={onClose}>
                   Cancel
