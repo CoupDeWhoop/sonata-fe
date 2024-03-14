@@ -6,7 +6,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { LessonsStack } from './LessonsStack.jsx';
 import AddLessonModal from '../screens/AddLesson.jsx';
 import { LessonModalContext } from '../context/LessonModalContext.jsx';
-import { View } from 'react-native';
+import { Alert, View } from 'react-native';
+import { deleteLesson } from '../../utils/api.js';
 
 
 
@@ -14,6 +15,24 @@ const Tab = createBottomTabNavigator();
 
 export const MainNavigator = () => {
     const { lessonModalIsVisible, setLessonModalIsVisible } = useContext(LessonModalContext);
+
+    const handleClose = async(lesson_id) => {
+        try {
+            await deleteLesson(lesson_id)
+            setLessonModalIsVisible(false) 
+        } catch (error) {
+            console.error('Error deleting lesson:', error);
+            Alert.alert(
+                'Error',
+                'An error occurred while deleting the lesson. Please try again later.',
+                [
+                    { text: 'OK', onPress: () => console.log('OK Pressed') }
+                ],
+                { cancelable: false }
+            );
+        }
+
+    }
 
     return (
         <View style={{flex: 1}}>
@@ -46,7 +65,7 @@ export const MainNavigator = () => {
                     ),
                     }} />
             </Tab.Navigator>
-            <AddLessonModal visible={lessonModalIsVisible} onClose={() => setLessonModalIsVisible(false)} />
+            <AddLessonModal visible={lessonModalIsVisible} onClose={(lesson_id) => handleClose(lesson_id)} />
         </View>
     );
 }

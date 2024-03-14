@@ -12,7 +12,7 @@ const LessonsScreen = () => {
   const { 
     lessonModalIsVisible, setLessonModalIsVisible, 
     lessons, setLessons, 
-    setNewLesson
+    newLesson, setNewLesson
   } = useContext(LessonModalContext);
 
   const [loading, setLoading] = useState(true);
@@ -21,8 +21,8 @@ const LessonsScreen = () => {
   const handlePress = async() => {
     try {
       const timestamp = new Date().toISOString();
-      const newLesson = await postLesson(timestamp);
-      setNewLesson(newLesson);
+      const postedLesson = await postLesson(timestamp);
+      setNewLesson(postedLesson);
       setLessonModalIsVisible(true);
     } catch (error) {
       console.error('Error posting lesson:', error);

@@ -83,7 +83,14 @@ export const getPractises = async () => {
 export const postLesson = async (timestamp) => {
   return handleTokenRefresh(async () => {
     const { data } = await sonataApi.post('/lessons',{timestamp: timestamp});
-    return data.lessons;
+    return data.lesson;
+  })
+}
+
+export const deleteLesson = async (lesson_id) => {
+  return handleTokenRefresh(async () => {
+    const { data } = await sonataApi.delete(`/lessons/${lesson_id}`)
+    return data;
   })
 }
 
