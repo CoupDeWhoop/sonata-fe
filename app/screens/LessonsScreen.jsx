@@ -6,6 +6,7 @@ import { LessonModalContext } from '../context/LessonModalContext.jsx';
 import { LearningFocusList } from '../components/LearningFocusList.jsx';
 import Loading from '../components/Loading.jsx'
 import TextInputBox from '../components/TextInputBox.jsx';
+import Icon from 'react-native-vector-icons/AntDesign.js';
 
 const LessonsScreen = () => {
   const { 
@@ -45,7 +46,7 @@ const LessonsScreen = () => {
       <LearningFocusList lessons={lessons} />
       <TextInputBox />
       <FlatList 
-        contentContainerStyle={{marginTop:16}}
+        contentContainerStyle={{ marginTop: 16 }}
         data={lessons}
         keyExtractor={(item) => item.lesson_id}
         renderItem={( {item }) => (
@@ -60,7 +61,11 @@ const LessonsScreen = () => {
       </Card>
           )}
       />
-      
+
+      <TouchableOpacity style={styles.addNoteButton} >
+        <Icon name="pluscircle" size={48} color="#ff0000" />
+      </TouchableOpacity>
+
 
     </View>
 
@@ -74,7 +79,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     paddingBottom: 8,
-    paddingLeft: 4
+    paddingLeft: 4,
   },
   card: {
     margin: 2,

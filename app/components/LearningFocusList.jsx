@@ -12,7 +12,7 @@ const LearningFocusCard = ({ learningFocus }) => (
 
 export const LearningFocusList = ({lessons}) => (
     <FlatList 
-        style={{flexGrow: 0}}
+        style={{flexGrow: 0, flexShrink: 0}}
         horizontal={true}
         data={lessons}
         keyExtractor={(item) => item.lesson_id}
