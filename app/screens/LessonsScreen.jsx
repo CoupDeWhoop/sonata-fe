@@ -2,8 +2,9 @@ import React, { useState, useEffect, useContext } from 'react';
 import { FlatList, StyleSheet, View, TouchableOpacity  } from 'react-native';
 import { Avatar, Card, Text } from 'react-native-paper';
 import { getLessons, postLesson } from '../../utils/api';
-import { LessonModalContext } from '../context/LessonModalContext';
-import { LearningFocusList } from '../components/LearningFocusList';
+import { LessonModalContext } from '../context/LessonModalContext.jsx';
+import { LearningFocusList } from '../components/LearningFocusList.jsx';
+import Loading from '../components/Loading.jsx'
 
 
 
@@ -46,7 +47,11 @@ const LessonsScreen = () => {
   }, []);
 
 
-  if (loading) return <Text>Wait</Text>;
+  if (loading) return <Loading />;
+
+
+    
+
 
   return (
     <View style={styles.screenContainer}>
