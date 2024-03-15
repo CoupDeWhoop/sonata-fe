@@ -1,6 +1,6 @@
 import React from 'react'
-import { StyleSheet, Image, View } from 'react-native';
-import { Avatar, Card, IconButton, Text } from 'react-native-paper'
+import { StyleSheet, View } from 'react-native';
+import { Avatar, Card, Text } from 'react-native-paper'
 
 
 export default PracticeCard = (props) => {

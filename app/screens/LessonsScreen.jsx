@@ -1,22 +1,22 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { FlatList, StyleSheet, View, TouchableOpacity  } from 'react-native';
-import { Avatar, Card, Text } from 'react-native-paper';
+import { Avatar, Card, Modal, Portal, Text, PaperProvider } from 'react-native-paper';
 import { getLessons, postLesson } from '../../utils/api';
 import { LessonModalContext } from '../context/LessonModalContext.jsx';
 import { LearningFocusList } from '../components/LearningFocusList.jsx';
+import AddLesson from './AddLesson.jsx';
 import Loading from '../components/Loading.jsx'
 import TextInputBox from '../components/TextInputBox.jsx';
 import Icon from 'react-native-vector-icons/AntDesign.js';
 
-const LessonsScreen = () => {
-  const { 
-    lessonModalIsVisible, setLessonModalIsVisible, 
-    lessons, setLessons, 
-    newLesson, setNewLesson
-  } = useContext(LessonModalContext);
-
+const LessonsScreen = ({ navigation }) => {
+  const [visible, setVisible] = useState(false);
+  const [lessons, setLessons] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
+
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
 
   useEffect(() => {
     const fetchLessons = async () => {
@@ -37,38 +37,36 @@ const LessonsScreen = () => {
   if (loading) return <Loading />;
 
 
-    
-
-
   return (
-    <View style={styles.screenContainer}>
-      <Text variant='titleMedium' style={styles.heading}>Recent lesson focus points</Text>
-      <LearningFocusList lessons={lessons} />
-      <TextInputBox />
-      <FlatList 
-        contentContainerStyle={{ marginTop: 16 }}
-        data={lessons}
-        keyExtractor={(item) => item.lesson_id}
-        renderItem={( {item }) => (
-          <Card style={styles.card}>
-          <Card.Title
-              title="Lesson"
-              subtitle={`${item.duration} min`}
-              left={(props) => <Avatar.Icon {...props} icon="bugle" backgroundColor='pink'/>}
-              right={() => <Text>{new Date(item.lesson_timestamp).toLocaleTimeString("en-GB", { hour: '2-digit', minute: '2-digit' })}</Text>}
-              rightStyle={{paddingRight: 16}}
-          />
-      </Card>
-          )}
-      />
-
-      <TouchableOpacity style={styles.addNoteButton} >
-        <Icon name="pluscircle" size={48} color="#ff0000" />
-      </TouchableOpacity>
-
-
-    </View>
-
+    <PaperProvider>
+      <View style={styles.screenContainer}>
+        <Text variant='titleMedium' style={styles.heading}>Recent lesson focus points</Text>
+        <LearningFocusList lessons={lessons} />
+        <TextInputBox />
+        <FlatList
+          contentContainerStyle={{ marginTop: 16 }}
+          data={lessons}
+          keyExtractor={(item) => item.lesson_id}
+          renderItem={( {item }) => (
+            <Card style={styles.card}>
+            <Card.Title
+                title="Lesson"
+                subtitle={`${item.duration} min`}
+                left={(props) => <Avatar.Icon {...props} icon="bugle" backgroundColor='pink'/>}
+                right={() => <Text>{new Date(item.lesson_timestamp).toLocaleTimeString("en-GB", { hour: '2-digit', minute: '2-digit' })}</Text>}
+                rightStyle={{paddingRight: 16}}
+            />
+        </Card>
+            )}
+        />
+          <TouchableOpacity style={styles.addButton} >
+            <Icon name="pluscircle" size={54} color="tomato" onPress={showModal}/>
+          </TouchableOpacity>
+      </View>
+      <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={styles.modalContainer}>
+        <AddLesson />
+      </Modal>
+    </PaperProvider>
   );
 };
 
@@ -85,6 +83,16 @@ const styles = StyleSheet.create({
     margin: 2,
     marginBottom: 16,
     backgroundColor: 'white'
+  },
+  addButton: {
+    zIndex: 9,
+    position: 'absolute',
+    bottom: 8,
+    right: 16
+  },
+  modalContainer: {
+    backgroundColor: 'white', 
+    padding: 20
   }
 });
 
