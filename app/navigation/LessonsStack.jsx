@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LessonsScreen from "../screens/LessonsScreen";
-import AddLesson from "../screens/AddLesson";
+import AddLesson from "../screens/AddLesson.jsx";
 
 const Stack = createNativeStackNavigator();
 

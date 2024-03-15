@@ -5,9 +5,7 @@ import { getLessons, postLesson } from '../../utils/api';
 import { LessonModalContext } from '../context/LessonModalContext.jsx';
 import { LearningFocusList } from '../components/LearningFocusList.jsx';
 import Loading from '../components/Loading.jsx'
-
-
-
+import TextInputBox from '../components/TextInputBox.jsx';
 
 const LessonsScreen = () => {
   const { 
@@ -18,18 +16,6 @@ const LessonsScreen = () => {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
-
-  const handlePress = async() => {
-    try {
-      const timestamp = new Date().toISOString();
-      const postedLesson = await postLesson(timestamp);
-      setNewLesson(postedLesson);
-      setLessonModalIsVisible(true);
-    } catch (error) {
-      console.error('Error posting lesson:', error);
-      setError('Failed to post the lesson. Please try again later.');
-    }
-  }
 
   useEffect(() => {
     const fetchLessons = async () => {
@@ -57,6 +43,7 @@ const LessonsScreen = () => {
     <View style={styles.screenContainer}>
       <Text variant='titleMedium' style={styles.heading}>Recent lesson focus points</Text>
       <LearningFocusList lessons={lessons} />
+      <TextInputBox />
       <FlatList 
         contentContainerStyle={{marginTop:16}}
         data={lessons}
@@ -73,24 +60,7 @@ const LessonsScreen = () => {
       </Card>
           )}
       />
-      <TouchableOpacity 
-        style={{ 
-            borderWidth: 1, 
-            borderColor: '#000066', 
-            alignItems: 'center', 
-            justifyContent: 'center', 
-            width: 70, 
-            position: 'absolute', 
-            bottom: 20, 
-            right: 20, 
-            height: 70, 
-            backgroundColor: '#000066', 
-            borderRadius: 100, 
-        }} 
-        onPress={() =>  handlePress()}
-      > 
-        <Text style={{ color: "white", fontSize: 24 }}>+</Text>
-      </TouchableOpacity> 
+      
 
     </View>
 

@@ -4,7 +4,7 @@ import StatsScreen from '../screens/StatsScreen.jsx';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { LessonsStack } from './LessonsStack.jsx';
-import AddLessonModal from '../screens/AddLesson.jsx';
+import AddLessonModal from '../screens/AddPractice.jsx';
 import { LessonModalContext } from '../context/LessonModalContext.jsx';
 import { Alert, View } from 'react-native';
 import { deleteLesson } from '../../utils/api.js';
