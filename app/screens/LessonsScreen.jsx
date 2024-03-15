@@ -31,7 +31,7 @@ const LessonsScreen = ({ navigation }) => {
     };
   
     fetchLessons();
-  }, []);
+  }, [lessons]);
 
 
   if (loading) return <Loading />;
@@ -64,7 +64,7 @@ const LessonsScreen = ({ navigation }) => {
           </TouchableOpacity>
       </View>
       <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={styles.modalContainer}>
-        <AddLesson />
+        <AddLesson setVisible={setVisible}/>
       </Modal>
     </PaperProvider>
   );

@@ -80,9 +80,11 @@ export const getPractises = async () => {
   });
 };
 
-export const postLesson = async (timestamp) => {
+export const postLesson = async (timestamp, duration) => {
+  const newLesson = { timestamp };
+  if (duration) newLesson['duration'] = duration;
   return handleTokenRefresh(async () => {
-    const { data } = await sonataApi.post('/lessons',{timestamp: timestamp});
+    const { data } = await sonataApi.post('/lessons', newLesson);
     return data.lesson;
   })
 }
