@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { FlatList, StyleSheet, View, TouchableOpacity  } from 'react-native';
 import { Avatar, Card, Modal, Portal, Text, PaperProvider } from 'react-native-paper';
-import { getLessons, postLesson } from '../../utils/api';
+import { getLessons, postLesson } from '../utils/apiCalls.js';
 import { LessonModalContext } from '../context/LessonModalContext.jsx';
 import { LearningFocusList } from '../components/LearningFocusList.jsx';
 import AddLesson from './AddLesson.jsx';

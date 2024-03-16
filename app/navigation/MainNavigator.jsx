@@ -7,7 +7,7 @@ import { LessonsStack } from './LessonsStack.jsx';
 import AddLessonModal from '../screens/AddPractice.jsx';
 import { LessonModalContext } from '../context/LessonModalContext.jsx';
 import { Alert, View } from 'react-native';
-import { deleteLesson } from '../../utils/api.js';
+import { deleteLesson } from '../utils';
 
 
 

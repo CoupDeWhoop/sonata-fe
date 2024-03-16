@@ -1,5 +1,5 @@
 import { TouchableOpacity } from "react-native";
-import { postLesson } from "../../utils/api";
+import { postLesson } from "../utils/apiCalls";
 
 export default AddLessonButton = () => {
     const { 

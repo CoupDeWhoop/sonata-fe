@@ -1,10 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { Platform } from 'react-native'
-            import JWT from 'expo-jwt';
 import axios from "axios";
-
-import * as SecureStore from 'expo-secure-store';
-import { configureAxiosHeader, postLogin, sonataApi, getTokens, setTokens, deleteTokens, refreshTokens, checkTokenisExpired } from "../../utils/api";
+import { postLogin, getTokens, setTokens, deleteTokens } from "../utils";
+import { configureAxiosHeader, sonataApi } from "../utils/api";
 export const API_URL = 'https://sonata-gj0z.onrender.com/api';
 const AuthContext = createContext({});
 

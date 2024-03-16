@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { ScrollView, View } from 'react-native';
-import { getPractises } from '../../utils/api';
+import { getPractises } from '../utils/apiCalls';
 import { Paragraph, Title } from 'react-native-paper';
 import { commonStyles } from '../../styles/common-styles';
 import PracticeCalendar from '../components/PracticeCalendar';

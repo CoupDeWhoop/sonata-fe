@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import {  StyleSheet, View } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Button, Text, TextInput } from "react-native-paper"
-import { formatDate, formatTime } from "../utils/format-date";
-import { postLesson } from "../../utils/api";
+import { formatDate, formatTime } from "../utils";
+import { postLesson } from "../utils";
 
 
 
