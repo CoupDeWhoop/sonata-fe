@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { postLogin, getTokens, setTokens, deleteTokens } from "../utils";
-import { configureAxiosHeader, sonataApi } from "../utils/api";
+import { configureAxiosHeader } from "../utils/api";
 export const API_URL = 'https://sonata-gj0z.onrender.com/api';
 const AuthContext = createContext({});
 
@@ -27,18 +27,6 @@ export const AuthProvider = ({ children }) => {
                 refreshToken: tokens.refreshToken,
                 authenticated: true,
             });
-        
-
-            // if (tokens) {
-            //         const newTokens = await refreshTokens(tokens.refreshToken);
-            //         await configureAxiosHeader(newTokens.accessToken);
-            //         setAuthState({
-            //             accessToken: newTokens.accessToken,
-            //             refreshToken: newTokens.refreshToken,
-            //             authenticated: true,
-            //         });
-
-            // }
         };
         loadTokens(); 
     }, []);
@@ -55,7 +43,7 @@ export const AuthProvider = ({ children }) => {
             const result = await postLogin(email, password);
             const { accessToken, refreshToken } = result.tokens;
             //UpdateHTTP Headers
-            await configureAxiosHeader(accessToken);
+            configureAxiosHeader(accessToken);
             setAuthState({
                 accessToken,
                 refreshToken,
@@ -73,7 +61,7 @@ export const AuthProvider = ({ children }) => {
 
         await deleteTokens()
         // Update HTTP Headers
-        sonataApi.defaults.headers.common['Authorization'] = '';
+        configureAxiosHeader('');
     
         // Reset auth state
         setAuthState({
