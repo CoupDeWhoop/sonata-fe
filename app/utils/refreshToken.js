@@ -1,4 +1,4 @@
-import { configureAxiosHeader } from './apiCalls';
+import { configureAxiosHeader } from './api';
 import { refreshTokens, setTokens } from './auth';
 
 export const handleTokenRefresh = async (apiCall) => {

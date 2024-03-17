@@ -1,3 +1,3 @@
-export * from './apiCalls';
+export * from './api';
 export * from './dateUtils';
 export * from './auth';

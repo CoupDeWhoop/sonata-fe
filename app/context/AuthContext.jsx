@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { postLogin, getTokens, setTokens, deleteTokens } from "../utils";
-import { configureAxiosHeader } from "../utils/api";
+import { configureAxiosHeader } from "../utils/apiConfig";
 export const API_URL = 'https://sonata-gj0z.onrender.com/api';
 const AuthContext = createContext({});
 

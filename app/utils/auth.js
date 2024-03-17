@@ -1,5 +1,5 @@
 import * as SecureStore from 'expo-secure-store';
-import { sonataApi } from './api';
+import { sonataApi } from './apiConfig';
 
 const ACCESS_TOKEN_KEY = 'my-access-jwt';
 const REFRESH_TOKEN_KEY = 'my-refresh-jwt';
