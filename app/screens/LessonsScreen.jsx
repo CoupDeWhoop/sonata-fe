@@ -1,37 +1,17 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState } from 'react';
 import { FlatList, StyleSheet, View, TouchableOpacity  } from 'react-native';
-import { Avatar, Card, Modal, Portal, Text, PaperProvider } from 'react-native-paper';
-import { getLessons} from '../utils/api.js';
+import { Avatar, Card, Modal, Text, PaperProvider } from 'react-native-paper';
 import { LearningFocusList } from '../components/LearningFocusList.jsx';
 import AddLesson from './AddLesson.jsx';
 import Loading from '../components/Loading.jsx'
 import Icon from 'react-native-vector-icons/AntDesign.js';
 import { formatDate } from '../utils/dateUtils.js';
 
-const LessonsScreen = ({ navigation }) => {
+const LessonsScreen = ({ navigation, lessons, setNewLesson, loading }) => {
   const [visible, setVisible] = useState(false);
-  const [lessons, setLessons] = useState([]);
-  const [newLesson, setNewLesson] = useState({});
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState();
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
-
-  useEffect(() => {
-    const fetchLessons = async () => {
-      try {
-        const result = await getLessons();
-        setLessons(result);
-        setLoading(false);
-      } catch (error) {
-        setLoading(false);
-        setError(error);
-      }
-    };
-  
-    fetchLessons();
-  }, [newLesson]);
 
 
   if (loading) return <Loading />;
