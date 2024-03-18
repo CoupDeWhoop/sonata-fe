@@ -10,6 +10,7 @@ const Stack = createNativeStackNavigator();
 export const LessonsStack = ( ) => {
     const [lessons, setLessons] = useState([]);
     const [newLesson, setNewLesson] = useState({});
+    const [selectedLesson, selectLesson] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState();
 
@@ -30,8 +31,28 @@ export const LessonsStack = ( ) => {
 
     return (
         <Stack.Navigator screenOptions={{ headerShown: true, animation: 'slide_from_right'}}>
-            <Stack.Screen name="Lessons" children={(props) => <LessonsScreen lessons={lessons} loading={loading} setNewLesson={setNewLesson} {...props} />} />
-            <Stack.Screen name="Lesson Details" component={LessonNotesScreen} />
+            <Stack.Screen
+            name="Lessons"
+            children={(props) => (
+                <LessonsScreen
+                    lessons={lessons}
+                    loading={loading}
+                    setNewLesson={setNewLesson}
+                    selectLesson={selectLesson}
+                    {...props}
+                />
+            )}
+            />
+            <Stack.Screen
+            name="Lesson Details"
+            children={(props) => (
+                <LessonNotesScreen
+                    lesson={selectedLesson}
+                    setNewLesson={setNewLesson}
+                    {...props}
+                />
+            )}
+            />
         </Stack.Navigator>
     )
 }

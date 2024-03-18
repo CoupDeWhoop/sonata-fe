@@ -54,3 +54,10 @@ export const deleteLesson = async (lesson_id) => {
         return data;
     });
 };
+
+export const postNote = async (lesson_id, newNote) => {
+    return handleTokenRefresh(async () => {
+        const { data } = await sonataApi.post(`/lessons/${lesson_id}/notes`, newNote);
+        return data.note;
+    })
+}

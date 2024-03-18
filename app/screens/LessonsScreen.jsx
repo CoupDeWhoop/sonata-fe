@@ -7,7 +7,7 @@ import Loading from '../components/Loading.jsx'
 import Icon from 'react-native-vector-icons/AntDesign.js';
 import { formatDate } from '../utils/dateUtils.js';
 
-const LessonsScreen = ({ navigation, lessons, setNewLesson, loading }) => {
+const LessonsScreen = ({ navigation, lessons, setNewLesson, selectLesson, loading }) => {
   const [visible, setVisible] = useState(false);
 
   const showModal = () => setVisible(true);
@@ -29,7 +29,10 @@ const LessonsScreen = ({ navigation, lessons, setNewLesson, loading }) => {
             <View>
               <Text variant='titleMedium' style={styles.heading}>{`${formatDate(item.lesson_timestamp)}`}</Text>
               <Card style={styles.card}
-                onPress={() => navigation.navigate('Lesson Details')} 
+                onPress={() => {
+                  selectLesson(item)
+                  navigation.navigate('Lesson Details')} 
+                }
               >
               <Card.Title
                   title="Lesson"
