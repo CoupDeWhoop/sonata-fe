@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { View, StyleSheet, ScrollView } from "react-native"
 import { Button, Text, TextInput } from "react-native-paper"
 
-export default AddLessonScreen = () => {
+export default LessonNotesScreen = () => {
     const [newLesson, setNewLesson] = useState({});
     return (
         <View style={{flex: 1}}>

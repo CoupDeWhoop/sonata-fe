@@ -42,13 +42,15 @@ const LessonsScreen = ({ navigation }) => {
         <Text variant='titleMedium' style={styles.heading}>Recent lesson focus points</Text>
         <LearningFocusList lessons={lessons} />
         <FlatList
-          contentContainerStyle={{ marginTop: 16, paddingBottom: 18 }}
+          contentContainerStyle={{ marginTop: 16, paddingBottom: 24 }}
           data={lessons}
           keyExtractor={(item) => item.lesson_id}
           renderItem={( {item }) => (
             <View>
               <Text variant='titleMedium' style={styles.heading}>{`${formatDate(item.lesson_timestamp)}`}</Text>
-              <Card style={styles.card}>
+              <Card style={styles.card}
+                onPress={() => navigation.navigate('Lesson Details')} 
+              >
               <Card.Title
                   title="Lesson"
                   subtitle={`${item.duration} min`}
@@ -60,9 +62,9 @@ const LessonsScreen = ({ navigation }) => {
             </View>
             )}
         />
-          <TouchableOpacity style={styles.addButton} >
-            <Icon name="pluscircle" size={54} color="tomato" onPress={showModal}/>
-          </TouchableOpacity>
+        <TouchableOpacity style={styles.addButton} >
+          <Icon name="pluscircle" size={54} color="tomato" onPress={showModal}/>
+        </TouchableOpacity>
       </View>
       <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={styles.modalContainer}>
         <AddLesson setVisible={setVisible} setNewLesson={setNewLesson} />
