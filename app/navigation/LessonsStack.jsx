@@ -49,6 +49,7 @@ export const LessonsStack = ( ) => {
                 <LessonNotesScreen
                     lesson={selectedLesson}
                     setNewLesson={setNewLesson}
+                    lessons={lessons}
                     {...props}
                 />
             )}

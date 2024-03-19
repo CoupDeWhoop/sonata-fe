@@ -1,11 +1,13 @@
 import { useState, useRef } from 'react';
 import { View, StyleSheet, FlatList, ScrollView } from "react-native"
-import { Button, Card, MD2Colors, Snackbar, Text, TextInput } from "react-native-paper"
+import { Button, Card, MD2Colors, Modal, Snackbar, Text, TextInput } from "react-native-paper"
 import { formatDate, formatTime, postNote } from '../utils';
+import { LearningFocusList } from '../components/LearningFocusList';
 
 
-export default LessonNotesScreen = ({lesson, setNewLesson}) => {
-    const [visible, setVisible] = useState(false);
+export default LessonNotesScreen = ({lesson, setNewLesson, lessons}) => {
+    const [errorVisible, setErrorVisible] = useState(false);
+    const [modalVisible, setModalVisible] = useState(false);
     const [learningFocus, setLearningFocus] = useState('');
     const [notes, setNotes] = useState('');
     const [error, setError] = useState(null)
@@ -18,7 +20,7 @@ export default LessonNotesScreen = ({lesson, setNewLesson}) => {
     const handleSubmitNote = async() => {
         if (!learningFocus || !notes) {
             setError("Learning Focus and Notes are required");
-            setVisible(true)
+            setErrorVisible(true)
             return;
         }
 
@@ -36,6 +38,7 @@ export default LessonNotesScreen = ({lesson, setNewLesson}) => {
             setNewLesson(updatedLesson);
             setLearningFocus('');
             setNotes('');
+            setModalVisible(false)
             setIsSubmitting(false)
         } catch (err) {
             console.log(err);
@@ -66,37 +69,52 @@ export default LessonNotesScreen = ({lesson, setNewLesson}) => {
                     </View>
                 )}
             />
-            <TextInput 
-                ref={learningFocusInputRef} 
-                style={styles.learningFocusInput} 
-                mode={'outlined'} 
-                label={Label('Learning Focus')}
-                value={learningFocus}
-                onChangeText={text => setLearningFocus(text)}
-            />
-            <TextInput 
-                ref={notesInputRef} 
-                style={styles.noteInput} 
-                mode={'outlined'} 
-                multiline={true}
-                placeholder='Lesson Notes'
-                placeholderTextColor={MD2Colors.grey500}
-                value={notes}
-                onChangeText={text => setNotes(text)}
-            />
             <Button 
-                mode="contained" 
-                style={styles.submitButton}
-                buttonColor={MD2Colors.pink200} 
-                labelStyle={{fontSize: 14}} 
-                disabled={isSubmitting}
-                onPress={handleSubmitNote}>
+                mode={'contained'} 
+                onPress={() => setModalVisible(true)}
+            >
                 Add Note
             </Button>
+            <Modal 
+                style={styles.modal} 
+                visible={modalVisible} 
+                onDismiss={() => setModalVisible(false)}
+                theme={{ colors: { backdrop: "rgba(0, 0, 0, 0.6)" }}}
+            >
+                <LearningFocusList lessons={lessons} setLearningFocus={setLearningFocus} />
+                <TextInput 
+                    ref={learningFocusInputRef} 
+                    style={styles.learningFocusInput} 
+                    mode={'outlined'} 
+                    label={Label('Learning Focus')}
+                    value={learningFocus}
+                    onChangeText={text => setLearningFocus(text)}
+                />
+                <TextInput 
+                    ref={notesInputRef} 
+                    style={styles.noteInput} 
+                    mode={'outlined'} 
+                    multiline={true}
+                    placeholder='Lesson Notes'
+                    placeholderTextColor={MD2Colors.grey500}
+                    value={notes}
+                    onChangeText={text => setNotes(text)}
+                />
+                <Button 
+                    mode="contained" 
+                    style={styles.submitButton}
+                    buttonColor={MD2Colors.pink200} 
+                    labelStyle={{fontSize: 14}} 
+                    disabled={isSubmitting}
+                    loading={isSubmitting}
+                    onPress={handleSubmitNote}>
+                    Add Note
+                </Button>
+            </Modal>
             <View>
                 <Snackbar
-                    visible={visible}
-                    onDismiss={() => setVisible(false)}
+                    visible={errorVisible}
+                    onDismiss={() => setErrorVisible(false)}
                     action={{
                         label: 'Close'
                     }}>
@@ -116,13 +134,16 @@ const styles = StyleSheet.create({
         marginBottom:4,
         backgroundColor: 'white',
     },
+    modal: {
+        margin: 16
+    },
     learningFocusInput: {
         backgroundColor: 'white',
         marginBottom: 8,
     
     },
     noteInput: {
-        height: 100,
+        height: 140,
         backgroundColor: 'white',
         textAlignVertical: 'top'
     },

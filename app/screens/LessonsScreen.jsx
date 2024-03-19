@@ -19,10 +19,8 @@ const LessonsScreen = ({ navigation, lessons, setNewLesson, selectLesson, loadin
   return (
     <PaperProvider>
       <View style={styles.screenContainer}>
-        <Text variant='titleMedium' style={styles.heading}>Recent lesson focus points</Text>
-        <LearningFocusList lessons={lessons} />
         <FlatList
-          contentContainerStyle={{ marginTop: 16, paddingBottom: 24 }}
+          contentContainerStyle={{ paddingBottom: 24 }}
           data={lessons}
           keyExtractor={(item) => item.lesson_id}
           renderItem={( {item }) => (
