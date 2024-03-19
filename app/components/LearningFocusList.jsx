@@ -8,9 +8,12 @@ export const LearningFocusList = ({lessons, setLearningFocus}) => (
         style={{flexGrow: 0, flexShrink: 0}}
         horizontal={true}
         data={lessons}
-        keyExtractor={(item) => item.lesson_id}
+        keyExtractor={(item) => {
+            return item.lesson_id
+        }}
         renderItem={( {item }) => item.notes.map((note) => (
-            <Card 
+            <Card
+                key={note.note_id} 
                 style={{margin: 2}} 
                 onPress={() => setLearningFocus(note.learning_focus)}
             >

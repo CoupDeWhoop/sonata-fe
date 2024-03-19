@@ -51,7 +51,10 @@ export default LessonNotesScreen = ({lesson, setNewLesson, lessons}) => {
 
     return (
         <View style={{flex: 1, padding: 16, paddingBottom: 8}}>
-            <Text style={styles.title} variant="titleLarge">{`${formatDate(lesson.lesson_timestamp, 'long')} - ${formatTime(lesson.lesson_timestamp)}`}</Text>
+            <View style={styles.titleContainer}>
+                <Text style={styles.title} variant="titleMedium">{`${formatDate(lesson.lesson_timestamp, 'long')}`}</Text>
+                <Text style={styles.title} variant="titleMedium"> {`${formatTime(lesson.lesson_timestamp)}`}</Text>
+            </View>
             <FlatList
                 contentContainerStyle={{ marginTop: 16, paddingBottom: 4}}
                 data={lesson.notes}
@@ -126,8 +129,10 @@ export default LessonNotesScreen = ({lesson, setNewLesson, lessons}) => {
 }
 
 const styles = StyleSheet.create({
-    title: {
-        textAlign: 'center'
+    titleContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: 8   
     },
     card: {
         margin: 2,

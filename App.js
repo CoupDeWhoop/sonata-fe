@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import {View, Button } from 'react-native';
+import {View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
@@ -29,14 +29,11 @@ export const Layout = () => {
   return (
     <View style={{flex: 1}}>
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator screenOptions={{headerShown: false}}>
           { authState.authenticated ? (
             <Stack.Screen
               name="Main"
-              component={MainNavigator}
-              options={{
-                headerRight: () => <Button onPress={onLogout} title="Sign Out" />,
-              }}></Stack.Screen>
+              component={MainNavigator}></Stack.Screen>
           ) : (
             <Stack.Screen name="Login" component={Login}></Stack.Screen>
           )
