@@ -4,14 +4,8 @@ import { Avatar, Card, Text } from 'react-native-paper'
 
 
 export default PracticeCard = (props) => {
-    const options = {
-        day: "numeric", 
-        month: "long", 
-      };
-    const formattedDate = new Intl.DateTimeFormat("en-GB", options).format(new Date(props.timestamp));
     return (
         <View style={styles.layout}>
-            <Text variant="titleMedium" style={styles.date}>{formattedDate}</Text>
             <Card>
                 <Card.Title
                     title="Practice"
@@ -28,7 +22,7 @@ export default PracticeCard = (props) => {
 
 const styles = StyleSheet.create({
     layout: {
-        marginVertical: 8,
+        margin: 2,
       },
     date: {
         paddingBottom: 8
