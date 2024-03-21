@@ -4,33 +4,33 @@ import StatsScreen from '../screens/StatsScreen.jsx';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { LessonsStack } from './LessonsStack.jsx';
-import AddLessonModal from '../screens/AddPractice.jsx';
-import { LessonModalContext } from '../context/LessonModalContext.jsx';
+import AddPracticeModal from '../screens/AddPractice.jsx';
+import { PracticeModalContext } from '../context/PracticeModalContext.jsx';
 import { Alert, View } from 'react-native';
-import { deleteLesson } from '../utils';
 
 
 
 const Tab = createBottomTabNavigator();
 
 export const MainNavigator = () => {
-    const { lessonModalIsVisible, setLessonModalIsVisible } = useContext(LessonModalContext);
+    const { practiceModalIsVisible, setPracticeModalIsVisible } = useContext(PracticeModalContext);
 
-    const handleClose = async(lesson_id) => {
-        try {
-            await deleteLesson(lesson_id)
-            setLessonModalIsVisible(false) 
-        } catch (error) {
-            console.error('Error deleting lesson:', error);
-            Alert.alert(
-                'Error',
-                'An error occurred while deleting the lesson. Please try again later.',
-                [
-                    { text: 'OK', onPress: () => console.log('OK Pressed') }
-                ],
-                { cancelable: false }
-            );
-        }
+    const handleClose = async() => {
+        setPracticeModalIsVisible(false) 
+        // try {
+        //     await deleteLesson(lesson_id)
+        //     setPracticeModalIsVisible(false) 
+        // } catch (error) {
+        //     console.error('Error deleting lesson:', error);
+        //     Alert.alert(
+        //         'Error',
+        //         'An error occurred while deleting the lesson. Please try again later.',
+        //         [
+        //             { text: 'OK', onPress: () => console.log('OK Pressed') }
+        //         ],
+        //         { cancelable: false }
+        //     );
+        // }
 
     }
 
@@ -65,7 +65,7 @@ export const MainNavigator = () => {
                     ),
                     }} />
             </Tab.Navigator>
-            <AddLessonModal visible={lessonModalIsVisible} onClose={(lesson_id) => handleClose(lesson_id)} />
+            <AddPracticeModal visible={practiceModalIsVisible} onClose={() => handleClose()} />
         </View>
     );
 }

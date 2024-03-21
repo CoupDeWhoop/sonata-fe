@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { ScrollView, StyleSheet, View } from 'react-native';
+import React, { useState, useEffect, useContext } from 'react'
+import { ScrollView, StyleSheet, View, TouchableOpacity } from 'react-native';
 import { getPractises } from '../utils/api';
 import { Paragraph, Text, Title } from 'react-native-paper';
 import { commonStyles } from '../../styles/common-styles';
@@ -7,11 +7,17 @@ import PracticeCalendar from '../components/PracticeCalendar';
 import PracticeCard from '../components/PracticeCard';
 import { formatDate } from '../utils';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Icon from 'react-native-vector-icons/AntDesign.js';
+import { PracticeModalContext } from '../context/PracticeModalContext';
 
 export default PracticeScreen = () => {
     const [practises, setPractises] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState();
+    const { 
+      practiceModalIsVisible,
+      setPracticeModalIsVisible
+    } = useContext(PracticeModalContext)
 
     useEffect(() => {
         const fetchPractises = async () => {
@@ -57,6 +63,9 @@ export default PracticeScreen = () => {
                     <PracticeCalendar practises={practises}/>
                 </View>
             </ScrollView>
+            <TouchableOpacity style={styles.addButton} >
+              <Icon name="pluscircle" size={54} color="tomato" onPress={() => setPracticeModalIsVisible(true)}/>
+            </TouchableOpacity>
         </SafeAreaView>
 
     )

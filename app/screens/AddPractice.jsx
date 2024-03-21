@@ -3,7 +3,7 @@ import { View, Modal, StyleSheet, StatusBar } from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LearningFocusList } from '../components/LearningFocusList.jsx';
-import { LessonModalContext } from '../context/LessonModalContext.jsx';
+import { PracticeModalContext } from '../context/PracticeModalContext.jsx';
 import { Timer } from '../components/timer.jsx';
 
 const NewLessonNote = () => {
@@ -19,8 +19,8 @@ const NewLessonNote = () => {
   );
 };
 
-const AddLessonModal = ({ visible, onClose }) => {
-  const { lessons, newLesson } = useContext(LessonModalContext)
+const AddPracticeModal = ({ visible, onClose }) => {
+  // const { practice, newPractice, practiceModalIsVisible } = useContext(PracticeModalContext)
   useEffect(() => {
     if(visible) {
       StatusBar.setBackgroundColor('pink');
@@ -38,14 +38,14 @@ const AddLessonModal = ({ visible, onClose }) => {
         onRequestClose={onClose}>
         <SafeAreaView style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            <LearningFocusList lessons={lessons} />
+            {/* <LearningFocusList lessons={lessons} /> */}
             {/* Content for creating and saving a new lesson */}
-            <Text variant='titleMedium'>{`${newLesson.lesson_id}`}</Text>
+            <Text variant='titleMedium'>titlemedium</Text>
             <NewLessonNote />
             <View style={{flex: 1, borderWidth: 1, justifyContent: 'flex-end'}}>
               <Timer />
               <View style={styles.submitButtons}>
-                <Button mode="outlined" labelStyle={{fontSize: 12}} onPress={() => onClose(newLesson.lesson_id)}>
+                <Button mode="outlined" labelStyle={{fontSize: 12}} onPress={() => onClose()}>
                   Cancel
                 </Button>
                 <Button mode="contained" contentStyle={{width: 90}}labelStyle={{fontSize: 12}} onPress={() => console.log('Pressed')}>
@@ -82,4 +82,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddLessonModal;
+export default AddPracticeModal;
