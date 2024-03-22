@@ -30,7 +30,7 @@ export default LessonNotesScreen = ({lesson, setNewLesson, lessons}) => {
 
         const newNote = {
             learning_focus: learningFocus,
-            notes: notes
+            note_content: notes
         }
         try {
             const postedNote = await postNote(lesson.lesson_id, newNote);
@@ -66,7 +66,7 @@ export default LessonNotesScreen = ({lesson, setNewLesson, lessons}) => {
                                 title={item.learning_focus}
                             />
                             <Card.Content>
-                                <Text variant="bodyMedium">{item.notes}</Text>
+                                <Text variant="bodyMedium">{item.note_content}</Text>
                             </Card.Content>
                         </Card>
                     </View>
@@ -105,7 +105,8 @@ export default LessonNotesScreen = ({lesson, setNewLesson, lessons}) => {
                 />
                 <Button 
                     mode="contained" 
-                    style={styles.submitButton}
+                    /*overrides grey on disabled*/
+                    style={[styles.submitButton, { backgroundColor: MD2Colors.pink200 }]} 
                     buttonColor={MD2Colors.pink200} 
                     labelStyle={{fontSize: 14}} 
                     disabled={isSubmitting}

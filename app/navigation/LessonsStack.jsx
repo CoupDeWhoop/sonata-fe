@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Button } from "react-native-paper"; 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { getLessons } from '../utils'
 import LessonsScreen from "../screens/LessonsScreen";
 import LessonNotesScreen from "../screens/LessonNotesScreen.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
+import { PracticeModalContext } from "../context/PracticeModalContext.jsx";
 
 const Stack = createNativeStackNavigator();
 
@@ -16,6 +17,8 @@ export const LessonsStack = ( ) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState();
     const { onLogout } = useAuth();
+    const { setLessonNotes } = useContext(PracticeModalContext);
+    
 
     useEffect(() => {
         const fetchLessons = async () => {

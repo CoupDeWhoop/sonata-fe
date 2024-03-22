@@ -14,10 +14,7 @@ export default PracticeScreen = () => {
     const [practises, setPractises] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState();
-    const { 
-      practiceModalIsVisible,
-      setPracticeModalIsVisible
-    } = useContext(PracticeModalContext)
+    const { setPracticeModalIsVisible } = useContext(PracticeModalContext)
 
     useEffect(() => {
         const fetchPractises = async () => {

@@ -1,30 +1,18 @@
-import React, { useState, createContext, useEffect } from 'react'
-import { getPractises } from '../utils';
+import React, { useState, createContext } from 'react'
 
 export const PracticeModalContext = createContext();
 
 export const PracticeModalProvider = ({ children }) => {
     const [practiceModalIsVisible, setPracticeModalIsVisible] = useState(false);
-    const [practices, setPractices] = useState([]);
+    const [practises, setPractises] = useState([]);
     const [newPractice, setNewPractice] = useState([]);
-
-    useEffect(() => {
-      fetchPractises = async() => {
-        try {
-          const practiceData = await getPractises();
-          setPractices(practiceData);
-        } catch (error) {
-          console.log(error);
-        }
-      }
-      fetchPractises()
-    }, [newPractice,])
+    const [lessonNotes, setLessonNotes] = useState([]);
 
     const value = {
       practiceModalIsVisible,
       setPracticeModalIsVisible,
-      practices,
-      setPractices,
+      practises,
+      setPractises,
       newPractice,
       setNewPractice
     }
@@ -34,5 +22,4 @@ export const PracticeModalProvider = ({ children }) => {
         {children}
       </PracticeModalContext.Provider>
     )
-  
   }

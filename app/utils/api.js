@@ -25,7 +25,6 @@ export const handleTokenRefresh = async (apiCall) => {
 };
 
 export const getLessons = async () => {
-    
     return handleTokenRefresh(async () => {
         const { data } = await sonataApi.get('/lessons/notes');
         return data.lessons;
