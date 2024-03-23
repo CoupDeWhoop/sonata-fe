@@ -11,7 +11,7 @@ export const PracticeModalProvider = ({ children }) => {
     const value = {
       practiceModalIsVisible,
       setPracticeModalIsVisible,
-      practises,
+      practises, // Take these out
       setPractises,
       newPractice,
       setNewPractice

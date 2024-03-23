@@ -8,6 +8,7 @@ import { AuthProvider, useAuth } from './app/context/AuthContext';
 import Login from './app/screens/Login';
 import { MainNavigator } from './app/navigation/MainNavigator';
 import { PracticeModalProvider } from './app/context/PracticeModalContext';
+import AppProvider from './app/context/AppProvider'; 
 
 const Stack = createNativeStackNavigator();
 
@@ -16,8 +17,10 @@ export default function App() {
     <SafeAreaProvider style={styles.container}>
       <AuthProvider>
         <PracticeModalProvider>
-          <Layout />
-          <StatusBar style="auto" /> 
+          <AppProvider>
+            <Layout />
+            <StatusBar style="auto" />
+          </AppProvider>
         </PracticeModalProvider>
       </AuthProvider>
     </SafeAreaProvider>
