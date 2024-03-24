@@ -1,20 +1,26 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { FlatList, StyleSheet, View, TouchableOpacity  } from 'react-native';
 import { Avatar, Card, Modal, Text, PaperProvider } from 'react-native-paper';
-import { LearningFocusList } from '../components/LearningFocusList.jsx';
 import AddLesson from './AddLesson.jsx';
 import Loading from '../components/Loading.jsx'
 import Icon from 'react-native-vector-icons/AntDesign.js';
 import { formatDate } from '../utils/dateUtils.js';
+import { AppContext } from '../context/AppProvider.jsx';
 
-const LessonsScreen = ({ navigation, lessons, setNewLesson, selectLesson, loading }) => {
+const LessonsScreen = ({ navigation, selectLesson }) => {
   const [visible, setVisible] = useState(false);
+  const { loading, lessons } = useContext(AppContext)
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
 
 
-  if (loading) return <Loading />;
+  if (loading) return (
+    <View>
+      <Text>lesson Loading</Text>
+      <Loading />
+    </View>
+  );
 
   return (
     <PaperProvider>
@@ -48,7 +54,7 @@ const LessonsScreen = ({ navigation, lessons, setNewLesson, selectLesson, loadin
         </TouchableOpacity>
       </View>
       <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={styles.modalContainer}>
-        <AddLesson setVisible={setVisible} setNewLesson={setNewLesson} />
+        <AddLesson setVisible={setVisible} />
       </Modal>
     </PaperProvider>
   );

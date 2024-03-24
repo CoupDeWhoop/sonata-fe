@@ -1,9 +1,10 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { useAuth } from "../context/AuthContext.jsx";
 import { getLessons, getPractises } from '../utils/api.js';
-const AppContext = createContext()
 
-const AppProvider = ({ children }) => {
+export const AppContext = createContext()
+
+export const AppProvider = ({ children }) => {
     const { authState } = useAuth();
     const [lessons, setLessons] = useState(null);
     const [practises, setPractises] = useState(null);
@@ -31,20 +32,34 @@ const AppProvider = ({ children }) => {
         }
     }, [authState]);
 
-    // if (loading) {
-    //     return <Te>Loading...</p>; 
-    // }
+    const updateLessons = async () => {
+        try {
+            const lessonsResult = await getLessons();
+            setLessons(lessonsResult);
+        } catch (error) {
+            setError(error);
+            console.error(error);
+        }
+    };
 
-    // if (error) {
-    //     return <p>Error: {error.message}</p>;
-    // }
+    const updatePractises = async () => {
+        try {
+            const practisesResult = await getPractises();
+            setPractises(practisesResult);
+        } catch (error) {
+            setError(error);
+            console.error(error);
+        }
+    };
 
     const value = {
         lessons,
-        practises
+        practises,
+        loading,
+        updateLessons,
+        updatePractises
     };
     
     return <AppContext.Provider value={value}>{children}</AppContext.Provider>
 };
 
-export default AppProvider;

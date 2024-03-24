@@ -9,27 +9,11 @@ import { formatDate } from '../utils';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/AntDesign.js';
 import { PracticeModalContext } from '../context/PracticeModalContext';
+import { AppContext } from '../context/AppProvider';
 
 export default PracticeScreen = () => {
-    const [practises, setPractises] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState();
+    const { practises, loading } = useContext(AppContext);
     const { setPracticeModalIsVisible } = useContext(PracticeModalContext)
-
-    useEffect(() => {
-        const fetchPractises = async () => {
-          try {
-            const result = await getPractises();
-            setPractises(result);
-            setLoading(false);
-          } catch (error) {
-            setLoading(false);
-            setError(error);
-          }
-        };
-      
-        fetchPractises();
-      }, []);
 
     if (loading) return <Paragraph>Wait</Paragraph>;
 

@@ -1,17 +1,19 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
 import { View, StyleSheet, FlatList, ScrollView } from "react-native"
 import { Button, Card, MD2Colors, Modal, Snackbar, Text, TextInput } from "react-native-paper"
 import { formatDate, formatTime, postNote } from '../utils';
 import { LearningFocusList } from '../components/LearningFocusList';
+import { AppContext } from '../context/AppProvider';
 
 
-export default LessonNotesScreen = ({lesson, setNewLesson, lessons}) => {
+export default LessonNotesScreen = ({ lesson }) => {
     const [errorVisible, setErrorVisible] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
     const [learningFocus, setLearningFocus] = useState('');
     const [notes, setNotes] = useState('');
     const [error, setError] = useState(null)
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const { updateLessons } = useContext(AppContext);
 
     const learningFocusInputRef = useRef(null);
     const notesInputRef = useRef(null);
@@ -35,7 +37,7 @@ export default LessonNotesScreen = ({lesson, setNewLesson, lessons}) => {
         try {
             const postedNote = await postNote(lesson.lesson_id, newNote);
             const updatedLesson = { ...lesson}.notes.push(postedNote);
-            setNewLesson(updatedLesson);
+            await updateLessons();
             setLearningFocus('');
             setNotes('');
             setModalVisible(false)

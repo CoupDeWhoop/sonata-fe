@@ -8,7 +8,7 @@ import { AuthProvider, useAuth } from './app/context/AuthContext';
 import Login from './app/screens/Login';
 import { MainNavigator } from './app/navigation/MainNavigator';
 import { PracticeModalProvider } from './app/context/PracticeModalContext';
-import AppProvider from './app/context/AppProvider'; 
+import { AppProvider }from './app/context/AppProvider'; 
 
 const Stack = createNativeStackNavigator();
 

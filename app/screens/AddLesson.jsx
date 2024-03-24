@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {  StyleSheet, View } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Button, Text, TextInput } from "react-native-paper"
 import { formatDate, formatTime, postLesson } from "../utils";
+import { AppContext } from "../context/AppProvider";
 
-export default AddLesson = ({setVisible, setNewLesson}) => {
+export default AddLesson = ({ setVisible }) => {
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [date, setDate] = useState(new Date().toISOString())
     const [duration, setDuration] = useState('20')
     const [error, setError] = useState('')
+    const { updateLessons } = useContext(AppContext)
 
     const showDatePicker = () => {
         setDatePickerVisibility(true);
@@ -31,7 +33,7 @@ export default AddLesson = ({setVisible, setNewLesson}) => {
 
         try {
             await postLesson(newLesson.timestamp, newLesson.duration);
-            setNewLesson(newLesson)
+            await updateLessons()
             setVisible(false);
           } catch (error) {
             console.error('Error posting lesson:', error);
