@@ -14,6 +14,9 @@ export default PracticeCard = (props) => {
                     right={() => <Text>{new Date(props.timestamp).toLocaleTimeString("en-GB", { hour: '2-digit', minute: '2-digit' })}</Text>}
                     rightStyle={{paddingRight: 16}}
                 />
+                <Card.Content>
+                    <Text>{props.notes}</Text>
+                </Card.Content>
             </Card>
         </View>
 

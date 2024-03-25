@@ -1,13 +1,13 @@
-import * as react from 'react';
+import react, {useEffect, useContext } from 'react';
 import { FlatList } from 'react-native';
 import { Card, Text } from 'react-native-paper';
 import { AppContext } from '../context/AppProvider';
 import { formatDate } from '../utils';
 
 
-export const LearningFocusList = () => {
+export const LearningFocusList = ({ setLearningFocus }) => {
 
-    const { lessons, practises } = react.useContext(AppContext);
+    const { lessons, practises } = useContext(AppContext);
 
     const allData = [...lessons, ...practises];
 
@@ -33,24 +33,28 @@ export const LearningFocusList = () => {
 
     });
     
-    const data = Object.keys(organizedData);
+    const learningFocuses = Object.keys(organizedData);
+
+    useEffect(() => {
+        setLearningFocus((organizedData[learningFocuses[0]]))
+    }, []) 
 
     return (
         <FlatList 
             style={{flexGrow: 0, flexShrink: 0}}
             horizontal={true}
-            data={data}
+            data={learningFocuses}
             keyExtractor={(item, index) => {
                 return index
             }}
-            renderItem={({item}) => (
+            renderItem={({item: focus}) => (
                 <Card
                 style={{margin: 2}} 
-                // onPress={() => setLearningFocus(note.learning_focus)}
+                onPress={() => setLearningFocus(organizedData[focus])}
                 >
                     <Card.Content>
-                    <Text variant="labelLarge">{item}</Text>
-                    <Text variant="labelMedium">{formatDate(organizedData[item][0].timestamp)}</Text>
+                    <Text variant="labelLarge">{focus}</Text>
+                    <Text variant="labelMedium">{formatDate(organizedData[focus][0].timestamp)}</Text>
                     </Card.Content>
                 </Card>
             )}

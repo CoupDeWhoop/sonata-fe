@@ -15,6 +15,7 @@ import { LearningFocusList } from '../components/LearningFocusList';
 export default PracticeScreen = () => {
     const { practises, loading } = useContext(AppContext);
     const { setPracticeModalIsVisible } = useContext(PracticeModalContext)
+    const [learningFocus, setLearningFocus] = useState(null);
 
     if (loading) return <Paragraph>Wait</Paragraph>;
 
@@ -25,31 +26,27 @@ export default PracticeScreen = () => {
             <Title>Last Practice</Title>
             <Text>{formatDate(practises[practises.length -1].practice_timestamp)}</Text>
             <Title>Recent learning focus</Title>
-            <LearningFocusList />
-            <ScrollView horizontal={true}>
-
-            </ScrollView>
+            <LearningFocusList setLearningFocus={setLearningFocus} />
             <ScrollView>
-                {practises.map((practice, index) => {
-                    const currentDate = new Date(practice.practice_timestamp).toDateString();
-                    const showDate = currentDate !== previousDate; // Check if it's a new date
+                {learningFocus && learningFocus.map((note, index) => {
+                        const currentDate = new Date(note.timestamp).toDateString();
+                        const showDate = currentDate !== previousDate; // Check if it's a new date
+                        previousDate = currentDate; // Update previousDate
 
-                    previousDate = currentDate; // Update previousDate
-
-                    return (
-                        <View style={styles.day} key={index}>
-                            {showDate ? <Text variant="titleMedium" style={styles.date}>{formatDate(practice.practice_timestamp)}</Text> : null}
-                            <PracticeCard
-                                notes={practice.notes}
-                                timestamp={practice.practice_timestamp}
-                                duration={practice.duration}
-                            />
-                        </View>
-                    );
-                })}
+                        return (
+                            <View style={styles.day} key={index}>
+                                {showDate ? <Text variant="titleMedium" style={styles.date}>{formatDate(note.timestamp)}</Text> : null}
+                                <PracticeCard
+                                    notes={note.noteContent}
+                                    timestamp={note.timestamp}
+                                    duration={note.duration}
+                                />
+                            </View>
+                        );
+                    })}
                     <View>
                         <Title>Calendar</Title>
-                        <PracticeCalendar practises={practises}/>
+                        {/* <PracticeCalendar/> */}
                     </View>
                 </ScrollView>
                 <TouchableOpacity style={styles.addButton} >
