@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { View } from 'react-native';
-import { Button, Menu, Divider, PaperProvider } from 'react-native-paper';
-import { useAuth } from '../context/AuthContext';
+import * as React from "react";
+import { View } from "react-native";
+import { Button, Menu, Divider, PaperProvider } from "react-native-paper";
+import { useAuth } from "../context/AuthContext";
 
 const MyComponent = () => {
   const [visible, setVisible] = React.useState(false);
@@ -17,13 +17,15 @@ const MyComponent = () => {
       <View
         style={{
           paddingTop: 50,
-          flexDirection: 'row',
-          justifyContent: 'center',
-        }}>
+          flexDirection: "row",
+          justifyContent: "center",
+        }}
+      >
         <Menu
           visible={visible}
           onDismiss={closeMenu}
-          anchor={<Button onPress={openMenu}>Show menu</Button>}>
+          anchor={<Button onPress={openMenu}>Show menu</Button>}
+        >
           <Menu.Item onPress={onLogout} title="Sign Out" />
           <Menu.Item onPress={() => {}} title="Item 2" />
           <Divider />

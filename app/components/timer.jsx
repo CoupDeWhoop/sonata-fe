@@ -9,6 +9,7 @@ export const Timer = () => {
       setElapsedTime((prevElapsedTime) => prevElapsedTime + 1);
     }, 1000);
 
+    //this is needed. useEffect returns when the component is unmounted
     return () => clearInterval(interval);
   }, []);
 
@@ -40,4 +41,3 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
-
