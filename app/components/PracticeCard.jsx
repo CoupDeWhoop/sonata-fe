@@ -21,6 +21,7 @@ export default PracticeCard = (props) => {
           rightStyle={{ paddingRight: 16 }}
         />
         <Card.Content>
+          <Text variant="labelMedium">{props.learningFocus}</Text>
           <Text>{props.notes}</Text>
         </Card.Content>
       </Card>

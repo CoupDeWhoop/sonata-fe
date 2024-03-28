@@ -1,15 +1,27 @@
-import react, { useEffect, useContext } from "react";
+import react, { useState, useContext } from "react";
 import { FlatList } from "react-native";
 import { Card, Text } from "react-native-paper";
 import { AppContext } from "../context/AppProvider";
 import { formatDate } from "../utils";
 
-export const LearningFocusList = ({ setLearningFocus }) => {
+export const LearningFocusList = ({
+  selectedLearningFocusList,
+  selectLearningFocusList,
+}) => {
   const { lessons, practises } = useContext(AppContext);
 
   const allData = [...lessons, ...practises];
 
   const organizedData = {};
+
+  const handlePress = (focus, index) => {
+    selectLearningFocusList((currentFocus) => {
+      if (currentFocus && currentFocus.index === index) {
+        return null; // handles reclick on same item
+      }
+      return { list: organizedData[focus], index };
+    });
+  };
 
   allData.forEach((item) => {
     if (item.notes) {
@@ -30,24 +42,24 @@ export const LearningFocusList = ({ setLearningFocus }) => {
     }
   });
 
-  const learningFocuses = Object.keys(organizedData);
-
-  useEffect(() => {
-    setLearningFocus(organizedData[learningFocuses[0]]);
-  }, []);
+  const learningFocusList = Object.keys(organizedData);
 
   return (
     <FlatList
       style={{ flexGrow: 0, flexShrink: 0 }}
       horizontal={true}
-      data={learningFocuses}
-      keyExtractor={(item, index) => {
-        return index;
-      }}
-      renderItem={({ item: focus }) => (
+      data={learningFocusList}
+      keyExtractor={(item) => item}
+      renderItem={({ item: focus, index }) => (
         <Card
           style={{ margin: 2 }}
-          onPress={() => setLearningFocus(organizedData[focus])}
+          mode={
+            selectedLearningFocusList &&
+            selectedLearningFocusList.index === index
+              ? "outlined"
+              : "contained"
+          }
+          onPress={() => handlePress(focus, index)}
         >
           <Card.Content>
             <Text variant="labelLarge">{focus}</Text>
