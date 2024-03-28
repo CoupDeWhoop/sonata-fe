@@ -15,7 +15,8 @@ export default PracticeScreen = () => {
   const { practises, loading } = useContext(AppContext);
   const { setPracticeModalIsVisible } = useContext(PracticeModalContext);
   const [selectedLearningFocusList, selectLearningFocusList] = useState(null);
-  if (loading) return <Paragraph>Wait</Paragraph>;
+  const [practiceNotes, setPracticeNotes] = useState(null);
+  if (loading) return <Paragraph>Waisssst</Paragraph>;
 
   let previousDate = null;
   return (
@@ -28,38 +29,57 @@ export default PracticeScreen = () => {
       <LearningFocusList
         selectedLearningFocusList={selectedLearningFocusList}
         selectLearningFocusList={selectLearningFocusList}
+        practiceNotes={practiceNotes}
+        setPracticeNotes={setPracticeNotes}
       />
-      <ScrollView>
-        {!selectedLearningFocusList ? (
-          <Text>No learning focus selected</Text>
-        ) : (
-          selectedLearningFocusList.list.map((note, index) => {
-            const currentDate = new Date(note.timestamp).toDateString();
-            const showDate = currentDate !== previousDate; // Check if it needs a new date title
-            previousDate = currentDate;
+      {practiceNotes && (
+        <ScrollView>
+          {!selectedLearningFocusList
+            ? Object.values(practiceNotes).map((nestedArray, index) => {
+                // this data is nested like this in learningFocusList
+                return (
+                  <View key={`title-${index}`}>
+                    <Text style={styles.title}>
+                      {Object.keys(practiceNotes)[index]}
+                    </Text>
+                    {nestedArray.map((item, innerIndex) => (
+                      <PracticeCard
+                        notes={item.noteContent}
+                        timestamp={item.timestamp}
+                        duration={item.duration}
+                        learningFocus={item.learning_focus}
+                      />
+                    ))}
+                  </View>
+                );
+              })
+            : selectedLearningFocusList.list.map((note, index) => {
+                const currentDate = new Date(note.timestamp).toDateString();
+                const showDate = currentDate !== previousDate; // Check if it needs a new date title
+                previousDate = currentDate;
 
-            return (
-              <View style={styles.day} key={index}>
-                {showDate ? (
-                  <Text variant="titleMedium" style={styles.date}>
-                    {formatDate(note.timestamp)}
-                  </Text>
-                ) : null}
-                <PracticeCard
-                  notes={note.noteContent}
-                  timestamp={note.timestamp}
-                  duration={note.duration}
-                  learningFocus={note.learning_focus}
-                />
-              </View>
-            );
-          })
-        )}
-        <View>
-          <Title>Calendar</Title>
-          <PracticeCalendar />
-        </View>
-      </ScrollView>
+                return (
+                  <View style={styles.day} key={index}>
+                    {showDate ? (
+                      <Text variant="titleMedium" style={styles.date}>
+                        {formatDate(note.timestamp)}
+                      </Text>
+                    ) : null}
+                    <PracticeCard
+                      notes={note.noteContent}
+                      timestamp={note.timestamp}
+                      duration={note.duration}
+                      learningFocus={note.learning_focus}
+                    />
+                  </View>
+                );
+              })}
+          <View>
+            <Title>Calendar</Title>
+            <PracticeCalendar />
+          </View>
+        </ScrollView>
+      )}
       <TouchableOpacity style={styles.addButton}>
         <Icon
           name="pluscircle"
@@ -76,5 +96,10 @@ const styles = StyleSheet.create({
   date: {
     paddingBottom: 4,
     paddingTop: 16,
+  },
+  title: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 8,
   },
 });

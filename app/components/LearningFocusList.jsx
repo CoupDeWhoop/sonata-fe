@@ -1,4 +1,4 @@
-import react, { useState, useContext } from "react";
+import react, { useState, useContext, useEffect } from "react";
 import { FlatList } from "react-native";
 import { Card, Text } from "react-native-paper";
 import { AppContext } from "../context/AppProvider";
@@ -7,42 +7,51 @@ import { formatDate } from "../utils";
 export const LearningFocusList = ({
   selectedLearningFocusList,
   selectLearningFocusList,
+  practiceNotes,
+  setPracticeNotes,
 }) => {
   const { lessons, practises } = useContext(AppContext);
 
-  const allData = [...lessons, ...practises];
+  useEffect(() => {
+    const organiseNotes = () => {
+      const allData = [...lessons, ...practises];
+      const organizedData = {};
 
-  const organizedData = {};
+      allData.forEach((item) => {
+        if (item.notes) {
+          item.notes.forEach((note) => {
+            const timestamp = item.lesson_timestamp || item.practice_timestamp;
+            if (!organizedData[note.learning_focus]) {
+              organizedData[note.learning_focus] = [];
+            }
+            organizedData[note.learning_focus].push({
+              type: item.lesson_timestamp ? "lesson" : "practice",
+              id: item.lesson_id || item.practice_id,
+              timestamp: timestamp,
+              duration: item.duration,
+              noteId: note.note_id,
+              noteContent: note.note_content,
+            });
+          });
+        }
+      });
+      setPracticeNotes(organizedData);
+      console.log(practiceNotes);
+    };
+
+    organiseNotes();
+  }, []);
 
   const handlePress = (focus, index) => {
     selectLearningFocusList((currentFocus) => {
       if (currentFocus && currentFocus.index === index) {
         return null; // handles reclick on same item
       }
-      return { list: organizedData[focus], index };
+      return { list: practiceNotes[focus], index }; // Return an object with both list and index
     });
   };
 
-  allData.forEach((item) => {
-    if (item.notes) {
-      item.notes.forEach((note) => {
-        const timestamp = item.lesson_timestamp || item.practice_timestamp;
-        if (!organizedData[note.learning_focus]) {
-          organizedData[note.learning_focus] = [];
-        }
-        organizedData[note.learning_focus].push({
-          type: item.lesson_timestamp ? "lesson" : "practice",
-          id: item.lesson_id || item.practice_id,
-          timestamp: timestamp,
-          duration: item.duration,
-          noteId: note.note_id,
-          noteContent: note.note_content,
-        });
-      });
-    }
-  });
-
-  const learningFocusList = Object.keys(organizedData);
+  const learningFocusList = practiceNotes ? Object.keys(practiceNotes) : [];
 
   return (
     <FlatList
@@ -64,7 +73,7 @@ export const LearningFocusList = ({
           <Card.Content>
             <Text variant="labelLarge">{focus}</Text>
             <Text variant="labelMedium">
-              {formatDate(organizedData[focus][0].timestamp)}
+              {formatDate(practiceNotes[focus][0].timestamp)}
             </Text>
           </Card.Content>
         </Card>
