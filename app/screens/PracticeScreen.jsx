@@ -1,10 +1,10 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { ScrollView, StyleSheet, View, TouchableOpacity } from "react-native";
 import { Paragraph, Text, Title } from "react-native-paper";
 import { commonStyles } from "../../styles/common-styles";
 import PracticeCalendar from "../components/PracticeCalendar";
 import PracticeCard from "../components/PracticeCard";
-import { formatDate } from "../utils";
+import { formatDate, getAllNotes } from "../utils";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/AntDesign.js";
 import { PracticeModalContext } from "../context/PracticeModalContext";
@@ -16,7 +16,17 @@ export default PracticeScreen = () => {
   const { setPracticeModalIsVisible } = useContext(PracticeModalContext);
   const [selectedLearningFocusList, selectLearningFocusList] = useState(null);
   const [practiceNotes, setPracticeNotes] = useState(null);
+  const [allNotes, setAllNotes] = useState([]);
+  const [loadingNotes, setLoadingNotes] = useState(null);
   if (loading) return <Paragraph>Waisssst</Paragraph>;
+
+  useEffect(() => {
+    const fetchNotes = async () => {
+      const result = await getAllNotes();
+      setAllNotes(result);
+    };
+    fetchNotes();
+  }, []);
 
   let previousDate = null;
   return (
@@ -35,21 +45,21 @@ export default PracticeScreen = () => {
       {practiceNotes && (
         <ScrollView>
           {!selectedLearningFocusList
-            ? Object.values(practiceNotes).map((nestedArray, index) => {
-                // this data is nested like this in learningFocusList
+            ? allNotes.map((note, index) => {
+                let timestamp;
+                if (note.lesson_timestamp) {
+                  timestamp = note.lesson_timestamp;
+                } else {
+                  timestamp = note.practice_timestamp;
+                }
                 return (
-                  <View key={`title-${index}`}>
-                    <Text style={styles.title}>
-                      {Object.keys(practiceNotes)[index]}
-                    </Text>
-                    {nestedArray.map((item, innerIndex) => (
-                      <PracticeCard
-                        notes={item.noteContent}
-                        timestamp={item.timestamp}
-                        duration={item.duration}
-                        learningFocus={item.learning_focus}
-                      />
-                    ))}
+                  <View key={index}>
+                    <PracticeCard
+                      notes={note.note_content}
+                      timestamp={timestamp}
+                      duration={note.duration}
+                      learningFocus={note.learning_focus}
+                    />
                   </View>
                 );
               })

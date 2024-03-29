@@ -38,6 +38,13 @@ export const getPractises = async () => {
   });
 };
 
+export const getAllNotes = () => {
+  return handleTokenRefresh(async () => {
+    const { data } = await sonataApi.get("/notes");
+    return data.notes;
+  });
+};
+
 export const postLesson = async (timestamp, duration) => {
   const newLesson = { timestamp };
   if (duration) newLesson["duration"] = duration;

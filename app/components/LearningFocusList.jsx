@@ -36,7 +36,6 @@ export const LearningFocusList = ({
         }
       });
       setPracticeNotes(organizedData);
-      console.log(practiceNotes);
     };
 
     organiseNotes();
