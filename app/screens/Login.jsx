@@ -26,10 +26,7 @@ const Login = () => {
 
   return (
     <View style={styles.container}>
-      <Image
-        source={{ uri: "https://galaxies.dev/img/logos/logo--blue.png" }}
-        style={styles.image}
-      />
+      <Image source={require("../../assets/icon.png")} style={styles.image} />
       <View style={styles.form}>
         <TextInput
           style={styles.input}
@@ -53,9 +50,10 @@ const Login = () => {
 
 const styles = StyleSheet.create({
   image: {
-    width: "50%",
-    height: "50%",
+    width: 250,
+    height: 250,
     resizeMode: "contain",
+    marginBottom: 30,
   },
   form: {
     gap: 10,
@@ -69,8 +67,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   container: {
+    flex: 1,
+    justifyContent: "center",
     alignItems: "center",
-    width: "100%",
+    margin: 5,
+    backgroundColor: "#F3E38B",
   },
 });
 
