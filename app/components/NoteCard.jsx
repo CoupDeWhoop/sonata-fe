@@ -38,7 +38,7 @@ const NoteCard = ({ timestamp, lesson_id, learning_focus, note_content }) => {
 
 const styles = StyleSheet.create({
   layout: {
-    margin: 2,
+    margin: 4,
   },
   rightContainer: {
     marginRight: 12,

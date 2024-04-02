@@ -34,7 +34,7 @@ export default PracticeScreen = () => {
   if (isLoading) return <Loading />;
 
   return (
-    <SafeAreaView style={commonStyles.layout}>
+    <View style={commonStyles.layout}>
       {/* <Title>Last Practice</Title>
       {
         <Text>
@@ -70,7 +70,7 @@ export default PracticeScreen = () => {
           onPress={() => setPracticeModalIsVisible(true)}
         />
       </TouchableOpacity>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -78,5 +78,10 @@ const styles = StyleSheet.create({
   heading: {
     paddingBottom: 4,
   },
-  addButton: {},
+  addButton: {
+    zIndex: 9,
+    position: "absolute",
+    bottom: 24,
+    right: 54,
+  },
 });

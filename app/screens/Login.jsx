@@ -1,4 +1,5 @@
-import { View, TextInput, StyleSheet, Image, Button } from "react-native";
+import { View, TextInput, StyleSheet, Image } from "react-native";
+import { Button } from "react-native-paper";
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 
@@ -41,14 +42,29 @@ const Login = () => {
           onChangeText={(text) => setPassword(text)}
           value={password}
         />
-        <Button onPress={login} title="Sign in" />
-        <Button onPress={register} title="Create Account" />
+        <Button
+          mode="outlined"
+          onPress={login}
+          buttonColor={styles.buttonColor}
+          textColor="black"
+        >
+          Sign in
+        </Button>
+        <Button
+          mode="outlined"
+          onPress={register}
+          buttonColor={styles.buttonColor}
+          textColor="black"
+        >
+          Create Account
+        </Button>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  buttonColor: "#B9D9EB",
   image: {
     width: 250,
     height: 250,

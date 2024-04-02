@@ -1,8 +1,6 @@
-import react, { useState, useContext, useEffect } from "react";
-import { FlatList } from "react-native";
+import { useState, useEffect } from "react";
+import { FlatList, StyleSheet } from "react-native";
 import { Card, Text } from "react-native-paper";
-import { AppContext } from "../context/AppProvider";
-import { formatDate } from "../utils";
 import Loading from "./Loading";
 
 export const LearningFocusList = ({
@@ -44,13 +42,13 @@ export const LearningFocusList = ({
 
   return (
     <FlatList
-      style={{ flexGrow: 0, flexShrink: 0 }}
+      style={styles.container}
       horizontal={true}
       data={Object.keys(learningTopics)}
       keyExtractor={(item, index) => `${index}:${learningTopics[item].id}`}
       renderItem={({ item, index }) => (
         <Card
-          style={{ margin: 2 }}
+          style={styles.card}
           mode={
             learningFocusList && learningFocusList.index === index
               ? "outlined"
@@ -67,3 +65,14 @@ export const LearningFocusList = ({
     />
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flexGrow: 0,
+    flexShrink: 0,
+  },
+  card: {
+    margin: 2,
+    backgroundColor: "#ffdae0",
+  },
+});

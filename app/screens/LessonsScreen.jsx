@@ -14,13 +14,7 @@ const LessonsScreen = ({ navigation, selectLesson }) => {
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
 
-  if (loading)
-    return (
-      <View>
-        <Text>lesson Loading</Text>
-        <Loading />
-      </View>
-    );
+  if (loading) return <Loading />;
 
   return (
     <PaperProvider>

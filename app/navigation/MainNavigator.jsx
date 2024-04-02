@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import PracticeScreen from "../screens/PracticeScreen.jsx";
 import StatsScreen from "../screens/StatsScreen.jsx";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import Icon from "react-native-vector-icons/AntDesign.js";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { LessonsStack } from "./LessonsStack.jsx";
 import AddPracticeModal from "../screens/AddPractice.jsx";
@@ -36,7 +37,6 @@ export const MainNavigator = () => {
     <View style={{ flex: 1 }}>
       <Tab.Navigator
         screenOptions={{
-          headerShown: false,
           tabBarLabelStyle: {
             fontSize: 14,
           },
@@ -46,6 +46,7 @@ export const MainNavigator = () => {
           name="Home"
           component={LessonsStack}
           options={{
+            headerShown: false,
             tabBarLabel: "Home",
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons name="home" color={color} size={26} />
@@ -53,12 +54,12 @@ export const MainNavigator = () => {
           }}
         />
         <Tab.Screen
-          name="Practice Sessions"
+          name="Journal"
           component={PracticeScreen}
           options={{
-            tabBarLabel: "Practice",
+            tabBarLabel: "Journal",
             tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="piano" color={color} size={26} />
+              <Icon name="book" color={color} size={26} />
             ),
           }}
         />
@@ -68,11 +69,7 @@ export const MainNavigator = () => {
           options={{
             tabBarLabel: "Stats",
             tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons
-                name="chart-bar"
-                color={color}
-                size={26}
-              />
+              <Icon name="barchart" color={color} size={26} />
             ),
           }}
         />
