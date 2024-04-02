@@ -1,14 +1,8 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Avatar, Card, Text } from "react-native-paper";
-import { formatDate } from "../utils";
 
-export default NoteCard = ({
-  timestamp,
-  lesson_id,
-  learning_focus,
-  note_content,
-}) => {
+const NoteCard = ({ timestamp, lesson_id, learning_focus, note_content }) => {
   return (
     <View style={styles.layout}>
       <Card
@@ -17,16 +11,24 @@ export default NoteCard = ({
         }}
       >
         <Card.Title
-          title={lesson_id ? "Lesson" : "Practice"}
-          // subtitle={`${props.duration} min`}
-          left={(props) => (
-            <Avatar.Icon {...props} icon="bugle" backgroundColor="pink" />
+          title={learning_focus}
+          right={(props) => (
+            <View style={styles.iconContainer}>
+              <Text style={styles.rightText}>
+                {lesson_id ? "Lesson" : "Practice"}
+              </Text>
+              <Avatar.Icon
+                {...props}
+                icon="bugle"
+                size={32}
+                style={styles.icon}
+                backgroundColor="pink"
+              />
+            </View>
           )}
-          right={() => <Text>{formatDate(timestamp)}</Text>}
-          rightStyle={{ paddingRight: 16 }}
+          rightStyle={styles.rightContainer}
         />
         <Card.Content>
-          <Text variant="headlineSmall">{learning_focus}</Text>
           <Text>{note_content}</Text>
         </Card.Content>
       </Card>
@@ -38,7 +40,18 @@ const styles = StyleSheet.create({
   layout: {
     margin: 2,
   },
-  date: {
-    paddingBottom: 8,
+  rightContainer: {
+    marginRight: 12,
+  },
+  iconContainer: {
+    flexDirection: "row",
+  },
+  rightText: {
+    paddingTop: 6,
+  },
+  icon: {
+    marginLeft: 10,
   },
 });
+
+export default NoteCard;
