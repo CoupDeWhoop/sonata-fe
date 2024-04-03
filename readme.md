@@ -8,12 +8,12 @@ I am planning to expand the features of the app to include friends where musicia
 
 <p align="center"><strong>Login Screen</strong></p>
 <p align="center"><img src="./assets/screenshots/Login.png" alt="Login Screen" width="300"></p>
-
+<br>
 <p align="center"><strong>Lessons Screen</strong></p>
 <p align="center"><img src="./assets/screenshots/lessonScreen.png" alt="Lessons Screen" width="300"></p>
-
+<br>
 <p align="center"><strong>Journal Screen</strong></p>
 <p align="center"><img src="./assets/screenshots/Journal.png" alt="Journal Screen" width="300"></p>
-
+<br>
 <p align="center"><strong>Practice Modal</strong></p>
 <p align="center"><img src="./assets/screenshots/AddPracticeModal.png" alt="Practice Modal" width="300"></p>
