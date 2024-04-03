@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { FlatList, StyleSheet, View, TouchableOpacity } from "react-native";
 import { Avatar, Card, Modal, Text, PaperProvider } from "react-native-paper";
-import AddLesson from "./AddLesson.jsx";
+import AddLesson from "../modals/AddLesson.jsx";
 import Loading from "../components/Loading.jsx";
 import Icon from "react-native-vector-icons/AntDesign.js";
 import { formatDate } from "../utils/dateUtils.js";
@@ -31,8 +31,8 @@ const LessonsScreen = ({ navigation, selectLesson }) => {
               <Card
                 style={styles.card}
                 onPress={() => {
-                  selectLesson(item);
-                  navigation.navigate("Lesson Details");
+                  // // selectLesson(item);
+                  // navigation.navigate("Lesson Details");
                 }}
               >
                 <Card.Title

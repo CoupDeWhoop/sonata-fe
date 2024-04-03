@@ -37,7 +37,7 @@ export default AddLesson = ({ setVisible }) => {
       setVisible(false);
     } catch (error) {
       console.error("Error posting lesson:", error);
-      setError("Failed to post the lesson. Please try again later.");
+      setError("Failed to post the lesson. Please try again soon.");
     }
   };
 

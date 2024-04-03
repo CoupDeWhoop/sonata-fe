@@ -2,14 +2,12 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 export const Timer = () => {
-  const [elapsedTime, setElapsedTime] = useState(0);
-
+  const [elapsedSeconds, setElapsedSeconds] = useState(0);
   useEffect(() => {
     const interval = setInterval(() => {
-      setElapsedTime((prevElapsedTime) => prevElapsedTime + 1);
+      setElapsedSeconds((prevElapsedSeconds) => prevElapsedSeconds + 1);
     }, 1000);
 
-    //this is needed. useEffect returns when the component is unmounted
     return () => clearInterval(interval);
   }, []);
 
@@ -17,8 +15,8 @@ export const Timer = () => {
     return time.toString().padStart(2, "0");
   };
 
-  const minutes = Math.floor(elapsedTime / 60);
-  const seconds = elapsedTime % 60;
+  const minutes = Math.floor(elapsedSeconds / 60);
+  const seconds = elapsedSeconds % 60;
 
   return (
     <View style={styles.container}>

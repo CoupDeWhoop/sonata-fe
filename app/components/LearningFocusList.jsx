@@ -5,8 +5,8 @@ import Loading from "./Loading";
 
 export const LearningFocusList = ({
   learningFocusList,
-  setLearningFocusList,
   allNotes,
+  handlePress,
 }) => {
   const [learningTopics, setLearningTopics] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -29,15 +29,6 @@ export const LearningFocusList = ({
     organiseNotes();
   }, [allNotes]);
 
-  const handlePress = (focus, index) => {
-    setLearningFocusList((currentFocus) => {
-      if (currentFocus && currentFocus.index === index) {
-        return null; // handles reclick on same item
-      }
-      return { list: learningTopics[focus], index }; // Return an object with both list and index
-    });
-  };
-
   if (isLoading) return <Loading />;
 
   return (
@@ -54,7 +45,7 @@ export const LearningFocusList = ({
               ? "outlined"
               : "contained"
           }
-          onPress={() => handlePress(item, index)}
+          onPress={() => handlePress(item, learningTopics, index)}
         >
           <Card.Content>
             <Text variant="labelLarge">{item}</Text>

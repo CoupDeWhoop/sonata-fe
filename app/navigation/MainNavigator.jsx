@@ -5,31 +5,32 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import Icon from "react-native-vector-icons/AntDesign.js";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { LessonsStack } from "./LessonsStack.jsx";
-import AddPracticeModal from "../screens/AddPractice.jsx";
+import AddPracticeModal from "../modals/AddPracticeModal.jsx";
 import { PracticeModalContext } from "../context/PracticeModalContext.jsx";
 import { Alert, View } from "react-native";
 
 const Tab = createBottomTabNavigator();
 
 export const MainNavigator = () => {
-  const { practiceModalIsVisible, setPracticeModalIsVisible } =
+  const { practiceModalIsVisible, setPracticeModalIsVisible, setNewPractice } =
     useContext(PracticeModalContext);
 
-  const handleClose = async () => {
+  const handleClose = async (practice_id) => {
     setPracticeModalIsVisible(false);
+    setNewPractice(null);
     // try {
-    //     await deleteLesson(lesson_id)
+    //     await deletePractice(practice_id)
     //     setPracticeModalIsVisible(false)
     // } catch (error) {
-    //     console.error('Error deleting lesson:', error);
-    //     Alert.alert(
-    //         'Error',
-    //         'An error occurred while deleting the lesson. Please try again later.',
-    //         [
-    //             { text: 'OK', onPress: () => console.log('OK Pressed') }
-    //         ],
-    //         { cancelable: false }
-    //     );
+    // console.error('An Error occured while cancelling the practice:', error);
+    // Alert.alert(
+    //     'Error',
+    //     'An error occurred while deleting the lesson. Please try again later.',
+    //     [
+    //         { text: 'OK', onPress: () => console.log('OK Pressed') }
+    //     ],
+    //     { cancelable: false }
+    // );
     // }
   };
 
@@ -76,7 +77,7 @@ export const MainNavigator = () => {
       </Tab.Navigator>
       <AddPracticeModal
         visible={practiceModalIsVisible}
-        onClose={() => handleClose()}
+        onClose={() => handleClose(practice_id)}
       />
     </View>
   );

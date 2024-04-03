@@ -45,6 +45,12 @@ export const getAllNotes = () => {
   });
 };
 
+export const getPracticeNotes = (practice_id) => {
+  return handleTokenRefresh(async () => {
+    const { data } = await sonataApi.get(`/practises/${practice_id}/notes`);
+    return data.notes;
+  });
+};
 export const postLesson = async (timestamp, duration) => {
   const newLesson = { timestamp };
   if (duration) newLesson["duration"] = duration;
@@ -71,6 +77,21 @@ export const postLessonNote = async (lesson_id, newNote) => {
   });
 };
 
+export const postPracticeNote = async (
+  practice_id,
+  learning_focus,
+  note_content
+) => {
+  return handleTokenRefresh(async () => {
+    const { data } = await sonataApi.post(`/practises/${practice_id}/notes`, {
+      practice_id,
+      learning_focus,
+      note_content,
+    });
+    return data.note;
+  });
+};
+
 export const patchPracticeNote = async (practice_id, note_id, updatedNote) => {
   return handleTokenRefresh(async () => {
     const { data } = await sonataApi.patch(
@@ -78,5 +99,22 @@ export const patchPracticeNote = async (practice_id, note_id, updatedNote) => {
       updatedNote
     );
     return data.note;
+  });
+};
+
+export const postNewPractice = async (timestamp) => {
+  return handleTokenRefresh(async () => {
+    const { data } = await sonataApi.post("/practises", { timestamp });
+    console.log("data.practice", data.practice);
+    return data.practice;
+  });
+};
+
+export const finishPractice = async (practice_id, duration) => {
+  return handleTokenRefresh(async () => {
+    const { data } = await sonataApi.patch(`/practises/${practice_id}`, {
+      duration,
+    });
+    return data.practice;
   });
 };
