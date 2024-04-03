@@ -3,7 +3,7 @@ import { View } from "react-native";
 import { Button, Menu, Divider, PaperProvider } from "react-native-paper";
 import { useAuth } from "../context/AuthContext";
 
-const MyComponent = () => {
+const StatsScreen = () => {
   const [visible, setVisible] = React.useState(false);
 
   const openMenu = () => setVisible(true);
@@ -36,4 +36,4 @@ const MyComponent = () => {
   );
 };
 
-export default MyComponent;
+export default StatsScreen;

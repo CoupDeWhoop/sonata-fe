@@ -1,4 +1,4 @@
-# Sonata Screenshots
+# Sonata
 
 I've been building an app in React Native that helps music students to organise their practice. They are able to link their work to their lessons by looking at recent notes from lessons and practices and browse by the learning focus of that session. So a particular piece or area of technique.
 
@@ -16,4 +16,6 @@ I am planning to expand the features of the app to include friends where musicia
 <p align="center"><img src="./assets/screenshots/Journal.png" alt="Journal Screen" width="300"></p>
 <br>
 <p align="center"><strong>Practice Modal</strong></p>
+<p>Recent learning focus topics can be selected from the horizontal scroller at the top of the screen</p>
+<br>
 <p align="center"><img src="./assets/screenshots/AddPracticeModal.png" alt="Practice Modal" width="300"></p>

@@ -19,7 +19,6 @@
     "axios": "^1.6.7",
     "expo": "~50.0.8",
     "expo-jwt": "^1.7.0",
-    "expo-secure-store": "~12.8.1",
     "expo-status-bar": "~1.11.1",
     "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",

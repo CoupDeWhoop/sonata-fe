@@ -17,7 +17,7 @@ export const MainNavigator = () => {
 
   const handleClose = async (practice_id) => {
     setPracticeModalIsVisible(false);
-    setNewPractice(null);
+    setNewPractice({});
     // try {
     //     await deletePractice(practice_id)
     //     setPracticeModalIsVisible(false)

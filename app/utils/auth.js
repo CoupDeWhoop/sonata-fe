@@ -1,12 +1,12 @@
-import * as SecureStore from "expo-secure-store";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { sonataApi } from "./apiConfig";
 
 const ACCESS_TOKEN_KEY = "my-access-jwt";
 const REFRESH_TOKEN_KEY = "my-refresh-jwt";
 
 export const getTokens = async () => {
-  const accessToken = await SecureStore.getItemAsync(ACCESS_TOKEN_KEY);
-  const refreshToken = await SecureStore.getItemAsync(REFRESH_TOKEN_KEY);
+  const accessToken = await AsyncStorage.getItem(ACCESS_TOKEN_KEY);
+  const refreshToken = await AsyncStorage.getItem(REFRESH_TOKEN_KEY);
 
   return {
     accessToken,
@@ -23,13 +23,13 @@ export const refreshTokens = async () => {
 };
 
 export const setTokens = async (accessToken, refreshToken) => {
-  await SecureStore.setItemAsync(ACCESS_TOKEN_KEY, accessToken);
-  await SecureStore.setItemAsync(REFRESH_TOKEN_KEY, refreshToken);
+  await AsyncStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
+  await AsyncStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);
 };
 
 export const deleteTokens = async () => {
-  await SecureStore.deleteItemAsync(ACCESS_TOKEN_KEY);
-  await SecureStore.deleteItemAsync(REFRESH_TOKEN_KEY);
+  await AsyncStorage.removeItem(ACCESS_TOKEN_KEY);
+  await AsyncStorage.removeItem(REFRESH_TOKEN_KEY);
 };
 
 export const postLogin = async (email, password) => {

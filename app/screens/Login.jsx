@@ -45,7 +45,7 @@ const Login = () => {
         <Button
           mode="outlined"
           onPress={login}
-          buttonColor={styles.buttonColor}
+          buttonColor="#B9D9EB"
           textColor="black"
         >
           Sign in
@@ -53,7 +53,7 @@ const Login = () => {
         <Button
           mode="outlined"
           onPress={register}
-          buttonColor={styles.buttonColor}
+          buttonColor="#B9D9EB"
           textColor="black"
         >
           Create Account
@@ -64,7 +64,6 @@ const Login = () => {
 };
 
 const styles = StyleSheet.create({
-  buttonColor: "#B9D9EB",
   image: {
     width: 250,
     height: 250,
