@@ -1,7 +1,8 @@
 import * as React from "react";
 import { View, StyleSheet } from "react-native";
-import PracticeCalendar from "../components/PracticeCalendar";
+import PracticeCalendar from "../components/stats/PracticeCalendar.jsx";
 import { commonStyles } from "../../styles/common-styles.js";
+import StatsCard from "../components/stats/StatsCard.jsx";
 
 const StatsScreen = () => {
   return (
@@ -9,18 +10,38 @@ const StatsScreen = () => {
       <View>
         <PracticeCalendar />
         <View style={styles.gridContainer}>
-          <View
-            style={[styles.gridItem, { backgroundColor: "#D0F0C0" }]}
-          ></View>
-          <View
-            style={[styles.gridItem, { backgroundColor: "#B9D9EB" }]}
-          ></View>
-          <View
-            style={[styles.gridItem, { backgroundColor: "#FCE4EC" }]}
-          ></View>
-          <View
-            style={[styles.gridItem, { backgroundColor: "#F3E38B" }]}
-          ></View>
+          <View style={styles.gridItem}>
+            <StatsCard
+              color={"#D0F0C0"}
+              icon={"timer"}
+              title={"100 hours"}
+              text={"Total practice"}
+            />
+          </View>
+          <View style={styles.gridItem}>
+            <StatsCard
+              color={"#B9D9EB"}
+              icon={"counter"}
+              title={"34"}
+              text={"Total sessions"}
+            />
+          </View>
+          <View style={styles.gridItem}>
+            <StatsCard
+              color={"#FCE4EC"}
+              icon={"ruler"}
+              title={"40 mins"}
+              text={"Average session"}
+            />
+          </View>
+          <View style={styles.gridItem}>
+            <StatsCard
+              color={"#F3E38B"}
+              icon={"rocket-launch"}
+              title={"10 days"}
+              text={"Longest streak"}
+            />
+          </View>
         </View>
       </View>
     </View>
@@ -38,7 +59,6 @@ const styles = StyleSheet.create({
     width: "48%",
     height: 150,
     marginBottom: 20,
-    borderRadius: 8,
   },
 });
 

@@ -19,3 +19,6 @@ I am planning to expand the features of the app to include friends where musicia
 <p>Recent learning focus topics can be selected from the horizontal scroller at the top of the screen</p>
 <br>
 <p align="center"><img src="./assets/screenshots/AddPracticeModal.png" alt="Practice Modal" width="300"></p>
+<br>
+<p align="center"><strong>Stats Screen</strong></p>
+<p align="center"><img src="./assets/screenshots/StatsScreen.png" alt="Journal Screen" width="300"></p>

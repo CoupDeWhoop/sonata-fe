@@ -1,7 +1,7 @@
 import CalendarHeatmap from "react-native-range-responsive-calendar-heatmap";
 import { ScrollView, View } from "react-native";
 import { useContext, useRef, useEffect } from "react";
-import { AppContext } from "../context/AppProvider.jsx";
+import { AppContext } from "../../context/AppProvider.jsx";
 
 export default PracticeCalendar = () => {
   const { practises } = useContext(AppContext);
@@ -9,6 +9,7 @@ export default PracticeCalendar = () => {
     return { date: practice.practice_timestamp };
   });
 
+  console.log(formattedPracticeData);
   const scrollViewRef = useRef();
 
   useEffect(() => {
