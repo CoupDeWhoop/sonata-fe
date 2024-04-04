@@ -6,19 +6,26 @@ Statistics are displayed on stats Tab.
 
 I am planning to expand the features of the app to include friends where musicians can compare their stats and commuicate with each other. I will add a table to the database where repertoire data is stored and other users will be able to see what pieces they have been working on.
 
-<p align="center"><strong>Login Screen</strong></p>
-<p align="center"><img src="./assets/screenshots/Login.png" alt="Login Screen" width="300"></p>
-<br>
-<p align="center"><strong>Lessons Screen</strong></p>
-<p align="center"><img src="./assets/screenshots/lessonScreen.png" alt="Lessons Screen" width="300"></p>
-<br>
-<p align="center"><strong>Journal Screen</strong></p>
-<p align="center"><img src="./assets/screenshots/Journal.png" alt="Journal Screen" width="300"></p>
-<br>
-<p align="center"><strong>Practice Modal</strong></p>
-<p>Recent learning focus topics can be selected from the horizontal scroller at the top of the screen</p>
-<br>
-<p align="center"><img src="./assets/screenshots/AddPracticeModal.png" alt="Practice Modal" width="300"></p>
-<br>
-<p align="center"><strong>Stats Screen</strong></p>
-<p align="center"><img src="./assets/screenshots/StatsScreen.png" alt="Journal Screen" width="300"></p>
+<div style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-evenly;">
+  <div style="margin: 10px;">
+    <p align="center"><strong>Login Screen</strong></p>
+    <p align="center"><img src="./assets/screenshots/Login.png" alt="Login Screen" width="300"></p>
+  </div>
+  <div style="margin: 10px;">
+    <p align="center"><strong>Lessons Screen</strong></p>
+    <p align="center"><img src="./assets/screenshots/lessonScreen.png" alt="Lessons Screen" width="300"></p>
+  </div>
+  <div style="margin: 10px;">
+    <p align="center"><strong>Journal Screen</strong></p>
+    <p align="center"><img src="./assets/screenshots/Journal.png" alt="Journal Screen" width="300"></p>
+  </div>
+  <div style="margin: 10px;">
+    <p align="center"><strong>Practice Modal</strong></p>
+    <!-- <p>Recent learning focus topics can be selected from the horizontal scroller at the top of the screen</p> -->
+    <p align="center"><img src="./assets/screenshots/AddPracticeModal.png" alt="Practice Modal" width="300"></p>
+  </div>
+  <div style="margin: 10px;">
+    <p align="center"><strong>Stats Screen</strong></p>
+    <p align="center"><img src="./assets/screenshots/StatsScreen.png" alt="Stats Screen" width="300"></p>
+  </div>
+</div>
