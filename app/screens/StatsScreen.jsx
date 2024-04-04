@@ -1,39 +1,45 @@
 import * as React from "react";
-import { View } from "react-native";
-import { Button, Menu, Divider, PaperProvider } from "react-native-paper";
-import { useAuth } from "../context/AuthContext";
+import { View, StyleSheet } from "react-native";
+import PracticeCalendar from "../components/PracticeCalendar";
+import { commonStyles } from "../../styles/common-styles.js";
 
 const StatsScreen = () => {
-  const [visible, setVisible] = React.useState(false);
-
-  const openMenu = () => setVisible(true);
-
-  const closeMenu = () => setVisible(false);
-
-  const { onLogout } = useAuth();
-
   return (
-    <PaperProvider>
-      <View
-        style={{
-          paddingTop: 50,
-          flexDirection: "row",
-          justifyContent: "center",
-        }}
-      >
-        <Menu
-          visible={visible}
-          onDismiss={closeMenu}
-          anchor={<Button onPress={openMenu}>Show menu</Button>}
-        >
-          <Menu.Item onPress={onLogout} title="Sign Out" />
-          <Menu.Item onPress={() => {}} title="Item 2" />
-          <Divider />
-          <Menu.Item onPress={() => {}} title="Item 3" />
-        </Menu>
+    <View style={commonStyles.layout}>
+      <View>
+        <PracticeCalendar />
+        <View style={styles.gridContainer}>
+          <View
+            style={[styles.gridItem, { backgroundColor: "#D0F0C0" }]}
+          ></View>
+          <View
+            style={[styles.gridItem, { backgroundColor: "#B9D9EB" }]}
+          ></View>
+          <View
+            style={[styles.gridItem, { backgroundColor: "#FCE4EC" }]}
+          ></View>
+          <View
+            style={[styles.gridItem, { backgroundColor: "#F3E38B" }]}
+          ></View>
+        </View>
       </View>
-    </PaperProvider>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  gridContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    marginTop: 20,
+  },
+  gridItem: {
+    width: "48%",
+    height: 150,
+    marginBottom: 20,
+    borderRadius: 8,
+  },
+});
 
 export default StatsScreen;

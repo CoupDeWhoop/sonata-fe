@@ -1,6 +1,6 @@
 import CalendarHeatmap from "react-native-range-responsive-calendar-heatmap";
-import { ScrollView } from "react-native";
-import { useContext } from "react";
+import { ScrollView, View } from "react-native";
+import { useContext, useRef, useEffect } from "react";
 import { AppContext } from "../context/AppProvider.jsx";
 
 export default PracticeCalendar = () => {
@@ -8,13 +8,26 @@ export default PracticeCalendar = () => {
   const formattedPracticeData = practises.map((practice) => {
     return { date: practice.practice_timestamp };
   });
+
+  const scrollViewRef = useRef();
+
+  useEffect(() => {
+    scrollViewRef.current.scrollToEnd({ animated: true, duration: 5000 });
+  }, []);
+
   return (
-    <ScrollView horizontal={true} contentContainerStyle={{ paddingLeft: 16 }}>
+    <ScrollView
+      ref={scrollViewRef}
+      horizontal={true}
+      contentContainerStyle={{ paddingHorizontal: 16 }}
+    >
       <CalendarHeatmap
         endDate={Date.now()}
-        numDays={80}
-        colorArray={["#FCE4EC", "#D44B79", "#6B1928", "#9F3251", "#360000"]}
+        numDays={365}
+        gutterSize={3}
+        colorArray={["#FFF", "#D44B79", "#6B1928", "#9F3251", "#360000"]}
         values={formattedPracticeData}
+        onPress={() => {}}
       />
     </ScrollView>
   );
