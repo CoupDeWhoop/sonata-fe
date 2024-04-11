@@ -21,8 +21,8 @@ export default function App() {
         <PracticeModalProvider>
           <AppProvider>
             <PaperProvider>
+              <StatusBar style="auto" backgroundColor="#F3E38B" />
               <Layout />
-              <StatusBar style="auto" />
             </PaperProvider>
           </AppProvider>
         </PracticeModalProvider>
@@ -35,7 +35,7 @@ const Layout = () => {
   const { authState } = useAuth();
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.wrapper}>
         <NavigationContainer>
           <Stack.Navigator
@@ -55,7 +55,7 @@ const Layout = () => {
           </Stack.Navigator>
         </NavigationContainer>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -71,5 +71,6 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     maxWidth: 425,
+    maxHeight: 900,
   },
 });

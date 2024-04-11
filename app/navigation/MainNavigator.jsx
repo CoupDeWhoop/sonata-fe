@@ -41,6 +41,10 @@ export const MainNavigator = () => {
           tabBarLabelStyle: {
             fontSize: 14,
           },
+          tabBarStyle: {
+            backgroundColor: "",
+            height: 60,
+          },
         }}
       >
         <Tab.Screen

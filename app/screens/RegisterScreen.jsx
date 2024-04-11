@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -6,6 +6,10 @@ import { Button, TextInput } from "react-native-paper";
 import { HeaderComponent } from "../components/header/HeaderComponent";
 
 export const RegisterScreen = ({ navigation }) => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <SafeAreaView>
       <ScrollView>
@@ -15,14 +19,24 @@ export const RegisterScreen = ({ navigation }) => {
           backAction="Login"
         />
         <View style={styles.content}>
-          <TextInput label="Name" style={styles.input} />
+          <TextInput
+            label="Name"
+            value={name}
+            onChangeText={(text) => setName(text)}
+            style={styles.input}
+          />
           <TextInput
             label="Email"
+            value={email}
+            onChangeText={(text) => setEmail(text)}
             style={styles.input}
             keyboardType="email-address"
           />
+          <TextInput label="Instrument (optional)" style={styles.input} />
           <TextInput
             label="Password"
+            value={password}
+            onChangeText={(text) => setPassword(text)}
             style={styles.input}
             secureTextEntry={true}
             right={<TextInput.Icon icon="eye-off-outline" />}
@@ -33,7 +47,12 @@ export const RegisterScreen = ({ navigation }) => {
             secureTextEntry={true}
             right={<TextInput.Icon icon="eye-off-outline" />}
           />
-          <Button mode="contained" style={styles.button}>
+          <Button
+            mode="outlined"
+            buttonColor="#B9D9EB"
+            textColor="black"
+            style={styles.button}
+          >
             Register
           </Button>
         </View>

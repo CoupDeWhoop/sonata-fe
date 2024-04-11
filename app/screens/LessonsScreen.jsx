@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { FlatList, StyleSheet, View, TouchableOpacity } from "react-native";
-import { Avatar, Card, Modal, Text, PaperProvider } from "react-native-paper";
+import { Avatar, Card, Modal, Text } from "react-native-paper";
 import AddLesson from "../modals/AddLesson.jsx";
 import Loading from "../components/Loading.jsx";
 import Icon from "react-native-vector-icons/AntDesign.js";
@@ -17,7 +17,7 @@ const LessonsScreen = ({ navigation, selectLesson }) => {
   if (loading) return <Loading />;
 
   return (
-    <PaperProvider>
+    <>
       <View style={styles.screenContainer}>
         <FlatList
           contentContainerStyle={{ paddingBottom: 24 }}
@@ -75,7 +75,7 @@ const LessonsScreen = ({ navigation, selectLesson }) => {
       >
         <AddLesson setVisible={setVisible} />
       </Modal>
-    </PaperProvider>
+    </>
   );
 };
 

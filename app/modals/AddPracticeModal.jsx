@@ -33,7 +33,7 @@ const AddPracticeModal = ({ visible, onClose }) => {
     if (visible) {
       StatusBar.setBackgroundColor("pink");
     } else {
-      StatusBar.setBackgroundColor("#FAF9FA");
+      StatusBar.setBackgroundColor("#F3E38B");
     }
   }, [visible]);
 
