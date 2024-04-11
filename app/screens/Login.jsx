@@ -1,9 +1,9 @@
-import { View, TextInput, StyleSheet, Image } from "react-native";
+import { View, TextInput, SafeAreaView, StyleSheet, Image } from "react-native";
 import { Button } from "react-native-paper";
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 
-const Login = () => {
+const Login = ({ navigation }) => {
   const [email, setEmail] = useState("testemail@test.com");
   const [password, setPassword] = useState("Password123");
   const { onLogin, onRegister } = useAuth();
@@ -17,16 +17,17 @@ const Login = () => {
 
   //Automatically call the login after a successful registration
   const register = async () => {
-    const result = await onRegister(email, password);
-    if (result && result.error) {
-      alert(result.msg);
-    } else {
-      login();
-    }
+    navigation.navigate("Register");
+    // const result = await onRegister(email, password);
+    // if (result && result.error) {
+    //   alert(result.msg);
+    // } else {
+    //   login();
+    // }
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Image source={require("../../assets/icon.png")} style={styles.image} />
       <View style={styles.form}>
         <TextInput
@@ -59,7 +60,7 @@ const Login = () => {
           Create Account
         </Button>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -85,7 +86,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    margin: 5,
     backgroundColor: "#F3E38B",
   },
 });
