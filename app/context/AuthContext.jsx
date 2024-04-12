@@ -24,14 +24,21 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const loadTokens = async () => {
-      const tokens = await getTokens();
-      console.log("stored:", tokens.accessToken, tokens.refreshToken);
-      configureAxiosHeader(tokens.accessToken);
-      setAuthState({
-        accessToken: tokens.accessToken,
-        refreshToken: tokens.refreshToken,
-        authenticated: true,
-      });
+      try {
+        const tokens = await getTokens();
+        console.log("stored:", tokens.accessToken, tokens.refreshToken);
+        if (tokens.accessToken) {
+          configureAxiosHeader(tokens.accessToken);
+          setAuthState({
+            accessToken: tokens.accessToken,
+            refreshToken: tokens.refreshToken,
+            authenticated: true,
+          });
+        }
+      } catch (error) {
+        console.error("Error loading tokens:", error);
+        // Handle the error, e.g., show a message to the user or redirect to a login page
+      }
     };
     loadTokens();
   }, []);

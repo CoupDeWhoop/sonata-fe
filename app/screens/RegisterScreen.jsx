@@ -59,7 +59,6 @@ export const RegisterScreen = ({ navigation }) => {
       const newUser = await onRegister(name, email, password);
       const result = await onLogin(email, password);
     } catch (error) {
-      console.log(error);
     } finally {
       setIsSubmitting(false);
     }

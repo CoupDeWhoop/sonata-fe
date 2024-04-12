@@ -9,7 +9,6 @@ export default PracticeCalendar = () => {
     return { date: practice.practice_timestamp };
   });
 
-  console.log(formattedPracticeData);
   const scrollViewRef = useRef();
 
   useEffect(() => {

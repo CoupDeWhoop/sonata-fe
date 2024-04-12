@@ -42,5 +42,6 @@ export const postUser = async (user_name, user_email, user_password) => {
 };
 export const postLogin = async (email, password) => {
   const { data } = await sonataApi.post(`/auth/login`, { email, password });
+
   return data;
 };

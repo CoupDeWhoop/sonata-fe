@@ -6,7 +6,6 @@ export const handleTokenRefresh = async (apiCall) => {
     const result = await apiCall();
     return result;
   } catch (error) {
-    console.log(error.message);
     if (error.response && error.response.status === 403) {
       try {
         const { tokens } = await refreshTokens();

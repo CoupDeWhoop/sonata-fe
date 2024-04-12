@@ -57,11 +57,9 @@ const AddPracticeModal = ({ visible, onClose }) => {
   };
 
   const completePractice = async () => {
-    console.log("completePractice");
     const startTime = new Date(newPractice.practice_timestamp);
     const endTime = new Date();
     const duration = Math.ceil((endTime - startTime) / 60000); // converts to minutes
-    console.log(practice_id, duration);
     try {
       const result = await finishPractice(practice_id, duration);
       setMessage("Practice complete");
