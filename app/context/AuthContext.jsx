@@ -1,8 +1,13 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import axios from "axios";
-import { postLogin, getTokens, setTokens, deleteTokens } from "../utils";
+import {
+  postLogin,
+  getTokens,
+  setTokens,
+  deleteTokens,
+  postUser,
+} from "../utils";
 import { configureAxiosHeader } from "../utils/apiConfig";
-export const API_URL = "https://sonata-gj0z.onrender.com/api";
+
 const AuthContext = createContext({});
 
 export const useAuth = () => {
@@ -31,18 +36,12 @@ export const AuthProvider = ({ children }) => {
     loadTokens();
   }, []);
 
-  const register = async (email, password) => {
-    try {
-      return await axios.post(`${API_URL}/users`, { email, password });
-    } catch (error) {
-      return { error: true, msg: error.response.body.msg }; // TODO: check this
-    }
-  };
   const login = async (email, password) => {
     try {
       const result = await postLogin(email, password);
       const { accessToken, refreshToken } = result.tokens;
       //UpdateHTTP Headers
+
       configureAxiosHeader(accessToken);
       setAuthState({
         accessToken,
@@ -53,6 +52,15 @@ export const AuthProvider = ({ children }) => {
       setTokens(accessToken, refreshToken);
     } catch (error) {
       return { error: true, msg: error.message };
+    }
+  };
+
+  const register = async (name, email, password) => {
+    try {
+      const user = await postUser(name, email, password);
+      return user;
+    } catch (error) {
+      console.log("Registration Error:", error);
     }
   };
 

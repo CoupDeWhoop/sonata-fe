@@ -6,7 +6,7 @@ import { useAuth } from "../context/AuthContext";
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("testemail@test.com");
   const [password, setPassword] = useState("Password123");
-  const { onLogin, onRegister } = useAuth();
+  const { onLogin } = useAuth();
 
   const login = async () => {
     const result = await onLogin(email, password); // has onLogin!(email, password)
@@ -15,15 +15,8 @@ const Login = ({ navigation }) => {
     }
   };
 
-  //Automatically call the login after a successful registration
-  const register = async () => {
+  const signUp = async () => {
     navigation.navigate("Register");
-    // const result = await onRegister(email, password);
-    // if (result && result.error) {
-    //   alert(result.msg);
-    // } else {
-    //   login();
-    // }
   };
 
   return (
@@ -53,7 +46,7 @@ const Login = ({ navigation }) => {
         </Button>
         <Button
           mode="outlined"
-          onPress={register}
+          onPress={signUp}
           buttonColor="#B9D9EB"
           textColor="black"
         >

@@ -32,6 +32,14 @@ export const deleteTokens = async () => {
   await AsyncStorage.removeItem(REFRESH_TOKEN_KEY);
 };
 
+export const postUser = async (user_name, user_email, user_password) => {
+  const { data } = await sonataApi.post("/users", {
+    user_name,
+    user_email,
+    user_password,
+  });
+  return data.user;
+};
 export const postLogin = async (email, password) => {
   const { data } = await sonataApi.post(`/auth/login`, { email, password });
   return data;
