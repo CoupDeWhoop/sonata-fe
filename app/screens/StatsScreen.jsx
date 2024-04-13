@@ -1,21 +1,34 @@
 import React, { useContext } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import PracticeCalendar from "../components/stats/PracticeCalendar.jsx";
 import { commonStyles } from "../../styles/common-styles.js";
 import StatsCard from "../components/stats/StatsCard.jsx";
 import { AppContext } from "../context/AppProvider.jsx";
+import Loading from "../components/Loading.jsx";
 
 const StatsScreen = () => {
   const { practises } = useContext(AppContext);
+
+  if (!practises) return <Loading />;
+
   const totalPracticeinMins = practises.reduce((acc, curr) => {
     return (acc += curr.duration);
   }, 0);
 
-  const totalToNearestHalfHour = Math.round(totalPracticeinMins / 30) / 2;
-
   const totalSessions = practises.length;
+  const sessionsToDisplay = `${totalSessions}`;
+  let averageLength = 0;
+  if (totalSessions > 0)
+    averageLength = Math.round(totalPracticeinMins / totalSessions);
 
-  const averageLength = Math.round(totalPracticeinMins / totalSessions);
+  let totalToDisplay = "None yet!";
+  if (totalPracticeinMins > 0 && totalPracticeinMins < 60) {
+    totalToDisplay = `${totalPracticeinMins} mins`;
+  } else if (totalPracticeinMins > 0) {
+    totalToDisplay = Math.round(totalPracticeinMins / 30) / 2;
+  }
+
+  let streakToDisplay = "0 days";
 
   function getComparableDay(timestamp) {
     const date = new Date(timestamp);
@@ -29,6 +42,7 @@ const StatsScreen = () => {
     let currentStreak = 0;
     let longestStreak = 0;
     let previousDate = null;
+    let streakEnd = null;
 
     for (const practice of practises) {
       const practiceDate = getComparableDay(practice.practice_timestamp);
@@ -42,13 +56,27 @@ const StatsScreen = () => {
       }
 
       longestStreak = Math.max(longestStreak, currentStreak);
+      if (longestStreak > currentStreak) {
+        streakEnd = practiceDate;
+      }
 
       previousDate = practiceDate;
     }
-    return longestStreak;
+    return [longestStreak, streakEnd];
   }
 
-  const streak = calculateLongestStreak();
+  if (totalSessions) {
+    const [streak, streakEnd] = calculateLongestStreak();
+
+    const streakEndMonth = new Date(streakEnd).toLocaleString("en-GB", {
+      month: "short",
+      year: "2-digit",
+    });
+
+    streakToDisplay = `${streak} ${streak > 0 ? "day" : ""}${
+      streak > 1 ? "s" : ""
+    } ${streak > 0 ? streakEndMonth : ""}`;
+  }
 
   return (
     <View style={commonStyles.layout}>
@@ -59,15 +87,15 @@ const StatsScreen = () => {
             <StatsCard
               color={"#D0F0C0"}
               icon={"timer"}
-              title={`${totalToNearestHalfHour} hours`}
-              text={"Total practice"}
+              title={<Text>{totalToDisplay}</Text>}
+              text={<Text>{"Total practice"}</Text>}
             />
           </View>
           <View style={styles.gridItem}>
             <StatsCard
               color={"#B9D9EB"}
               icon={"counter"}
-              title={totalSessions}
+              title={sessionsToDisplay}
               text={"Total sessions"}
             />
           </View>
@@ -83,7 +111,7 @@ const StatsScreen = () => {
             <StatsCard
               color={"#F3E38B"}
               icon={"rocket-launch"}
-              title={`${streak} day${streak > 1 ? "s" : ""}`}
+              title={streakToDisplay}
               text={"Longest streak"}
             />
           </View>
