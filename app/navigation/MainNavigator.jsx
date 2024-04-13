@@ -42,7 +42,6 @@ export const MainNavigator = () => {
             fontSize: 14,
           },
           tabBarStyle: {
-            backgroundColor: "",
             height: 60,
           },
         }}
