@@ -104,7 +104,6 @@ export const patchPracticeNote = async (practice_id, note_id, updatedNote) => {
 export const postNewPractice = async (timestamp) => {
   return handleTokenRefresh(async () => {
     const { data } = await sonataApi.post("/practises", { timestamp });
-    console.log("data.practice", data.practice);
     return data.practice;
   });
 };

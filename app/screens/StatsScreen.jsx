@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import PracticeCalendar from "../components/stats/PracticeCalendar.jsx";
 import { commonStyles } from "../../styles/common-styles.js";
@@ -6,24 +6,24 @@ import StatsCard from "../components/stats/StatsCard.jsx";
 import { AppContext } from "../context/AppProvider.jsx";
 import Loading from "../components/Loading.jsx";
 
-function calculateLongestStreak() {
-  let currentStreak = 0;
-  let longestStreak = 0;
+function calculateLongestStreak(practises) {
+  if (!practises) return;
+  let currentStreak = 1;
+  let longestStreak = 1;
   let previousDate = null;
   let streakEnd = null;
 
   for (const practice of practises) {
     const practiceDate = getComparableDay(practice.practice_timestamp);
 
-    if (previousDate && practiceDate - previousDate > 1) {
+    if (previousDate && practiceDate - previousDate > 24 * 60 * 60 * 1000) {
       // more than a day
-      currentStreak = 0;
     } else if (previousDate && practiceDate != previousDate) {
       // only increment if not the same day
       currentStreak++;
     }
     longestStreak = Math.max(longestStreak, currentStreak);
-    if (longestStreak > currentStreak) {
+    if (longestStreak > currentStreak || !streakEnd) {
       streakEnd = practiceDate;
     }
     previousDate = practiceDate;
@@ -34,15 +34,21 @@ function calculateLongestStreak() {
 function getComparableDay(timestamp) {
   const date = new Date(timestamp);
   const year = date.getFullYear();
-  const month = date.getMonth() + 1; // Month is zero-indexed
+  const month = date.getMonth();
   const day = date.getDate();
-  return year * 10000 + month * 100 + day;
+  const comparableTimestamp = new Date(year, month, day).getTime(); // milliseconds at 00:00
+  return comparableTimestamp;
 }
 
 const StatsScreen = () => {
   const { practises } = useContext(AppContext);
+  const [updatedPractises, setUpdatedPractises] = useState(practises);
 
-  if (!practises) return <Loading />;
+  useEffect(() => {
+    setUpdatedPractises(practises);
+  }, [practises]);
+
+  if (!updatedPractises) return <Loading />;
 
   const totalPracticeinMins = practises.reduce((acc, curr) => {
     return (acc += curr.duration);
@@ -61,7 +67,7 @@ const StatsScreen = () => {
 
   if (totalSessions > 0) {
     averageLength = Math.round(totalPracticeinMins / totalSessions);
-    const [streak, streakEnd] = calculateLongestStreak();
+    const [streak, streakEnd] = calculateLongestStreak(practises);
 
     const streakEndMonth = new Date(streakEnd).toLocaleString("en-GB", {
       month: "short",
