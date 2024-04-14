@@ -6,6 +6,39 @@ import StatsCard from "../components/stats/StatsCard.jsx";
 import { AppContext } from "../context/AppProvider.jsx";
 import Loading from "../components/Loading.jsx";
 
+function calculateLongestStreak() {
+  let currentStreak = 0;
+  let longestStreak = 0;
+  let previousDate = null;
+  let streakEnd = null;
+
+  for (const practice of practises) {
+    const practiceDate = getComparableDay(practice.practice_timestamp);
+
+    if (previousDate && practiceDate - previousDate > 1) {
+      // more than a day
+      currentStreak = 0;
+    } else if (previousDate && practiceDate != previousDate) {
+      // only increment if not the same day
+      currentStreak++;
+    }
+    longestStreak = Math.max(longestStreak, currentStreak);
+    if (longestStreak > currentStreak) {
+      streakEnd = practiceDate;
+    }
+    previousDate = practiceDate;
+  }
+  return [longestStreak, streakEnd];
+}
+
+function getComparableDay(timestamp) {
+  const date = new Date(timestamp);
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1; // Month is zero-indexed
+  const day = date.getDate();
+  return year * 10000 + month * 100 + day;
+}
+
 const StatsScreen = () => {
   const { practises } = useContext(AppContext);
 
@@ -16,56 +49,18 @@ const StatsScreen = () => {
   }, 0);
 
   const totalSessions = practises.length;
-  const sessionsToDisplay = `${totalSessions}`;
   let averageLength = 0;
-  if (totalSessions > 0)
-    averageLength = Math.round(totalPracticeinMins / totalSessions);
-
   let totalToDisplay = "None yet!";
-  if (totalPracticeinMins > 0 && totalPracticeinMins < 60) {
-    totalToDisplay = `${totalPracticeinMins} mins`;
-  } else if (totalPracticeinMins > 0) {
-    totalToDisplay = Math.round(totalPracticeinMins / 30) / 2;
-  }
-
   let streakToDisplay = "0 days";
 
-  function getComparableDay(timestamp) {
-    const date = new Date(timestamp);
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1; // Month is zero-indexed
-    const day = date.getDate();
-    return year * 10000 + month * 100 + day;
+  if (totalPracticeinMins > 0 && totalPracticeinMins < 60) {
+    totalToDisplay = `${totalPracticeinMins} mins`;
+  } else if (totalPracticeinMins > 60) {
+    totalToDisplay = Math.round(totalPracticeinMins / 30) / 2; // to nearest half hour
   }
 
-  function calculateLongestStreak() {
-    let currentStreak = 0;
-    let longestStreak = 0;
-    let previousDate = null;
-    let streakEnd = null;
-
-    for (const practice of practises) {
-      const practiceDate = getComparableDay(practice.practice_timestamp);
-
-      if (previousDate && practiceDate - previousDate > 1) {
-        // more than a day
-        currentStreak = 0;
-      } else if (previousDate && practiceDate != previousDate) {
-        // only increment if not the same day
-        currentStreak++;
-      }
-
-      longestStreak = Math.max(longestStreak, currentStreak);
-      if (longestStreak > currentStreak) {
-        streakEnd = practiceDate;
-      }
-
-      previousDate = practiceDate;
-    }
-    return [longestStreak, streakEnd];
-  }
-
-  if (totalSessions) {
+  if (totalSessions > 0) {
+    averageLength = Math.round(totalPracticeinMins / totalSessions);
     const [streak, streakEnd] = calculateLongestStreak();
 
     const streakEndMonth = new Date(streakEnd).toLocaleString("en-GB", {
@@ -95,7 +90,7 @@ const StatsScreen = () => {
             <StatsCard
               color={"#B9D9EB"}
               icon={"counter"}
-              title={sessionsToDisplay}
+              title={`${totalSessions}`}
               text={"Total sessions"}
             />
           </View>
