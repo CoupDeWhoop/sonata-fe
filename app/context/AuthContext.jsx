@@ -22,6 +22,8 @@ export const AuthProvider = ({ children }) => {
     authenticated: null,
   });
 
+  const [message, setMessage] = useState(null);
+
   useEffect(() => {
     const loadTokens = async () => {
       try {
@@ -37,7 +39,7 @@ export const AuthProvider = ({ children }) => {
         }
       } catch (error) {
         console.error("Error loading tokens:", error);
-        // Handle the error, e.g., show a message to the user or redirect to a login page
+        setMessage("Server Error, please log in again");
       }
     };
     loadTokens();
@@ -68,6 +70,7 @@ export const AuthProvider = ({ children }) => {
       return user;
     } catch (error) {
       console.log("Registration Error:", error);
+      setMessage("Registration failed. Please try again");
     }
   };
 
@@ -89,6 +92,8 @@ export const AuthProvider = ({ children }) => {
     onLogin: login,
     onLogout: logout,
     authState,
+    message,
+    setMessage,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

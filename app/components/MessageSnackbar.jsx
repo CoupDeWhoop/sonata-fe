@@ -1,15 +1,11 @@
 import { View } from "react-native";
 import { Snackbar } from "react-native-paper";
 
-export default MessageSnackbar = ({
-  message,
-  messageVisible,
-  setMessageVisible,
-}) => (
+export default MessageSnackbar = ({ message, setMessage }) => (
   <View>
     <Snackbar
-      visible={messageVisible}
-      onDismiss={() => setMessageVisible(false)}
+      visible={message}
+      onDismiss={() => setMessage(null)}
       action={{
         label: "Close",
       }}

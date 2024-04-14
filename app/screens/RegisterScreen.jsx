@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useAuth } from "../context/AuthContext";
+import MessageSnackbar from "../components/MessageSnackbar";
 
 import { Button, TextInput } from "react-native-paper";
 import { HeaderComponent } from "../components/header/HeaderComponent";
@@ -29,7 +30,7 @@ const validationSchema = Yup.object().shape({
 
 export const RegisterScreen = ({ navigation }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { onLogin, onRegister } = useAuth();
+  const { onLogin, onRegister, message, setMessage } = useAuth();
   const {
     control,
     handleSubmit,
@@ -196,6 +197,13 @@ export const RegisterScreen = ({ navigation }) => {
           </View>
         </View>
       </ScrollView>
+      {message && (
+        <MessageSnackbar
+          message={message}
+          setMessage={setMessage}
+          onClose={() => setMessage(null)}
+        />
+      )}
     </SafeAreaView>
   );
 };
