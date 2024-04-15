@@ -1,13 +1,14 @@
 import React, { useContext, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Platform } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Button, Text, TextInput } from "react-native-paper";
 import { formatDate, formatTime, postLesson } from "../utils";
 import { AppContext } from "../context/AppProvider";
+import DateTimePickerWeb from "../components/DateTimePickerWeb";
 
 export default AddLesson = ({ setVisible }) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [date, setDate] = useState(new Date().toISOString());
+  const [date, setDate] = useState(new Date());
   const [duration, setDuration] = useState("20");
   const [error, setError] = useState("");
   const { updateLessons } = useContext(AppContext);
@@ -23,6 +24,12 @@ export default AddLesson = ({ setVisible }) => {
   const handleDateConfirm = (date) => {
     setDate(date);
     hideDatePicker();
+  };
+
+  const handleDurationChange = (input) => {
+    // Remove non-numeric characters from input
+    const numericValue = input.replace(/[^0-9]/g, "");
+    setDuration(numericValue);
   };
 
   const handleLessonConfirm = async () => {
@@ -44,17 +51,29 @@ export default AddLesson = ({ setVisible }) => {
   return (
     <View>
       <Text variant="titleLarge">
-        Lesson Date: {`${formatDate(date, "long")}`}
+        Lesson date: {`${formatDate(date, "long")}`}
       </Text>
-      <Text variant="titleLarge">Lesson Time: {`${formatTime(date)}`}</Text>
+      <Text variant="titleLarge">Lesson time: {`${formatTime(date)}`}</Text>
+      <Text style={{ marginBottom: 16 }} variant="titleLarge">
+        Lesson duration: {`${duration}`}
+      </Text>
+      {Platform.OS === "web" && (
+        <View style={{ zIndex: 100 }}>
+          <DateTimePickerWeb date={date} setDate={setDate} />
+        </View>
+      )}
       <TextInput
+        style={styles.textInput}
         keyboardType="numeric"
-        onChangeText={(num) => setDuration(num)}
+        onChangeText={handleDurationChange}
+        label="Lesson length (mins)"
         value={duration}
       />
-      <Button style={styles.button} mode="elevated" onPress={showDatePicker}>
-        Choose lesson time & date
-      </Button>
+      {Platform.OS !== "web" && (
+        <Button style={styles.button} mode="elevated" onPress={showDatePicker}>
+          Choose lesson time & date
+        </Button>
+      )}
       <Button
         style={styles.button}
         mode="elevated"
@@ -62,18 +81,23 @@ export default AddLesson = ({ setVisible }) => {
       >
         Confirm
       </Button>
-      <DateTimePickerModal
-        isVisible={isDatePickerVisible}
-        mode="datetime"
-        onConfirm={handleDateConfirm}
-        onCancel={hideDatePicker}
-      />
+      {Platform.OS !== "web" && (
+        <DateTimePickerModal
+          isVisible={isDatePickerVisible}
+          mode="datetime"
+          onConfirm={handleDateConfirm}
+          onCancel={hideDatePicker}
+        />
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   button: {
+    marginVertical: 16,
+  },
+  textInput: {
     marginVertical: 16,
   },
 });

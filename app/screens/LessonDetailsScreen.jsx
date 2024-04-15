@@ -158,6 +158,8 @@ const styles = StyleSheet.create({
     margin: 2,
     marginBottom: 4,
     backgroundColor: "white",
+    borderWidth: 0,
+    shadowColor: "transparent",
   },
   modal: {
     margin: 16,
