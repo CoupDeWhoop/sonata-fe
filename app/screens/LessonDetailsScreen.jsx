@@ -9,7 +9,7 @@ import {
   Text,
   TextInput,
 } from "react-native-paper";
-import { formatDate, formatTime, postNote } from "../utils";
+import { formatDate, formatTime, postLessonNote } from "../utils";
 import { LearningFocusList } from "../components/LearningFocusList";
 import { AppContext } from "../context/AppProvider";
 
@@ -24,6 +24,10 @@ export default LessonDetailsScreen = ({ lesson }) => {
 
   const learningFocusInputRef = useRef(null);
   const notesInputRef = useRef(null);
+
+  const handleLearningFocusPress = (item, learningTopics, index) => {
+    setLearningFocus(item);
+  };
 
   const handleSubmitNote = async () => {
     if (!learningFocus || !notes) {
@@ -41,7 +45,7 @@ export default LessonDetailsScreen = ({ lesson }) => {
       note_content: notes,
     };
     try {
-      const postedNote = await postNote(lesson.lesson_id, newNote);
+      const postedNote = await postLessonNote(lesson.lesson_id, newNote);
       const updatedLesson = { ...lesson }.notes.push(postedNote);
       await updateLessons();
       setLearningFocus("");
@@ -95,8 +99,8 @@ export default LessonDetailsScreen = ({ lesson }) => {
         theme={{ colors: { backdrop: "rgba(0, 0, 0, 0.6)" } }}
       >
         <LearningFocusList
-          lessons={lesson}
-          setLearningFocus={setLearningFocus}
+          allNotes={lesson.notes}
+          handlePress={handleLearningFocusPress}
         />
         <TextInput
           ref={learningFocusInputRef}

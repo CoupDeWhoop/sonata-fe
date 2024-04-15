@@ -20,7 +20,7 @@ export const LearningFocusList = ({
         sortedNotes[curr.learning_focus].push(curr);
 
         return sortedNotes;
-      }, {});
+      }, []);
 
       setLearningTopics(result);
       setIsLoading(false);
