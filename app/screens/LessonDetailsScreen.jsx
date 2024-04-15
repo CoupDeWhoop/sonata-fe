@@ -13,7 +13,7 @@ import { formatDate, formatTime, postNote } from "../utils";
 import { LearningFocusList } from "../components/LearningFocusList";
 import { AppContext } from "../context/AppProvider";
 
-export default LessonNotesScreen = ({ lesson }) => {
+export default LessonDetailsScreen = ({ lesson }) => {
   const [errorVisible, setErrorVisible] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [learningFocus, setLearningFocus] = useState("");
@@ -95,7 +95,7 @@ export default LessonNotesScreen = ({ lesson }) => {
         theme={{ colors: { backdrop: "rgba(0, 0, 0, 0.6)" } }}
       >
         <LearningFocusList
-          lessons={lessons}
+          lessons={lesson}
           setLearningFocus={setLearningFocus}
         />
         <TextInput

@@ -10,6 +10,7 @@ import { AppContext } from "../context/AppProvider.jsx";
 const LessonsScreen = ({ navigation, selectLesson }) => {
   const [visible, setVisible] = useState(false);
   const { loading, lessons } = useContext(AppContext);
+  let previousDate = null;
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
@@ -23,41 +24,50 @@ const LessonsScreen = ({ navigation, selectLesson }) => {
           contentContainerStyle={{ paddingBottom: 24 }}
           data={lessons}
           keyExtractor={(item) => item.lesson_id}
-          renderItem={({ item }) => (
-            <View>
-              <Text variant="titleMedium" style={styles.heading}>{`${formatDate(
-                item.lesson_timestamp
-              )}`}</Text>
-              <Card
-                style={styles.card}
-                onPress={() => {
-                  // // selectLesson(item);
-                  // navigation.navigate("Lesson Details");
-                }}
-              >
-                <Card.Title
-                  title="Lesson"
-                  subtitle={`${item.duration} min`}
-                  left={(props) => (
-                    <Avatar.Icon
-                      {...props}
-                      icon="bugle"
-                      backgroundColor="pink"
-                    />
-                  )}
-                  right={() => (
-                    <Text>
-                      {new Date(item.lesson_timestamp).toLocaleTimeString(
-                        "en-GB",
-                        { hour: "2-digit", minute: "2-digit" }
-                      )}
-                    </Text>
-                  )}
-                  rightStyle={{ paddingRight: 16 }}
-                />
-              </Card>
-            </View>
-          )}
+          renderItem={({ item }) => {
+            const currentDate = new Date(item.lesson_timestamp).toDateString();
+            const showDate = currentDate != previousDate;
+            previousDate = currentDate;
+
+            return (
+              <View>
+                {showDate && (
+                  <Text
+                    variant="titleMedium"
+                    style={styles.heading}
+                  >{`${formatDate(item.lesson_timestamp)}`}</Text>
+                )}
+                <Card
+                  style={styles.card}
+                  onPress={() => {
+                    selectLesson(item);
+                    navigation.navigate("Lesson Details");
+                  }}
+                >
+                  <Card.Title
+                    title="Lesson"
+                    subtitle={`${item.duration} min`}
+                    left={(props) => (
+                      <Avatar.Icon
+                        {...props}
+                        icon="bugle"
+                        backgroundColor="pink"
+                      />
+                    )}
+                    right={() => (
+                      <Text>
+                        {new Date(item.lesson_timestamp).toLocaleTimeString(
+                          "en-GB",
+                          { hour: "2-digit", minute: "2-digit" }
+                        )}
+                      </Text>
+                    )}
+                    rightStyle={{ paddingRight: 16 }}
+                  />
+                </Card>
+              </View>
+            );
+          }}
         />
         <TouchableOpacity style={styles.addButton}>
           <Icon

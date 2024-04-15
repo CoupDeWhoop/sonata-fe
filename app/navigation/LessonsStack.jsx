@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "react-native-paper";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LessonsScreen from "../screens/LessonsScreen";
-import LessonNotesScreen from "../screens/LessonNotesScreen.jsx";
+import LessonDetailsScreen from "../screens/LessonDetailsScreen.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
 
 const Stack = createNativeStackNavigator();
@@ -35,7 +35,7 @@ export const LessonsStack = () => {
       <Stack.Screen
         name="Lesson Details"
         children={(props) => (
-          <LessonNotesScreen lesson={selectedLesson} {...props} />
+          <LessonDetailsScreen lesson={selectedLesson} {...props} />
         )}
       />
     </Stack.Navigator>
