@@ -1,5 +1,12 @@
 import React, { useContext, useEffect, useState, useCallback } from "react";
-import { View, ScrollView, Modal, StyleSheet, StatusBar } from "react-native";
+import {
+  View,
+  ScrollView,
+  Modal,
+  StyleSheet,
+  StatusBar,
+  Platform,
+} from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import LearningFocusList from "../components/LearningFocusList.jsx";
@@ -104,7 +111,12 @@ const AddPracticeModal = ({ visible, onClose }) => {
       transparent={true}
       onRequestClose={() => onClose(practice_id)}
     >
-      <SafeAreaView style={styles.modalContainer}>
+      <SafeAreaView
+        style={[
+          styles.modalContainer,
+          Platform.OS === "web" ? { alignSelf: "center" } : null,
+        ]}
+      >
         <View style={styles.modalContent}>
           <Text variant="titleMedium">Recent Work</Text>
           <LearningFocusList allNotes={notes} handlePress={handleListPress} />
@@ -124,6 +136,7 @@ const AddPracticeModal = ({ visible, onClose }) => {
               multiline={true}
               onChangeText={(text) => setLearningFocus(text)}
               contentStyle={{ backgroundColor: "white" }}
+              style={{ backgroundColor: "white" }} // needed for web
             />
             <TextInput
               label="Notes"
@@ -131,7 +144,7 @@ const AddPracticeModal = ({ visible, onClose }) => {
               multiline={true}
               onChangeText={(text) => setNoteContent(text)}
               contentStyle={{ backgroundColor: "white" }}
-              style={{ marginBottom: 16 }}
+              style={{ marginBottom: 16, backgroundColor: "#FFF" }}
             />
             <Button
               mode="contained"
@@ -192,6 +205,7 @@ const AddPracticeModal = ({ visible, onClose }) => {
 const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
+    maxWidth: 500,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "pink",
@@ -201,6 +215,7 @@ const styles = StyleSheet.create({
     width: "90%",
     backgroundColor: "white",
     padding: 20,
+    marginTop: Platform.OS === "web" ? 20 : 0,
     marginBottom: 20,
     borderRadius: 10,
     elevation: 5,

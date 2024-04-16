@@ -17,26 +17,28 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <SafeAreaProvider>
-      <AuthProvider>
-        <PracticeModalProvider>
-          <AppProvider>
-            <PaperProvider>
-              <React.Fragment>
-                {Platform.OS === "web" ? (
-                  <style type="text/css">{`
-                      @font-face {
-                        font-family: 'MaterialCommunityIcons';
-                        src: url(${require("react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf")}) format('truetype');
-                      }
-                    `}</style>
-                ) : null}
-                <StatusBar style="auto" backgroundColor="#F3E38B" />
-                <Layout />
-              </React.Fragment>
-            </PaperProvider>
-          </AppProvider>
-        </PracticeModalProvider>
-      </AuthProvider>
+      <View style={{ flex: 1 }}>
+        <AuthProvider>
+          <PracticeModalProvider>
+            <AppProvider>
+              <PaperProvider>
+                <React.Fragment>
+                  {Platform.OS === "web" ? (
+                    <style type="text/css">{`
+                  @font-face {
+                    font-family: 'MaterialCommunityIcons';
+                    src: url(${require("react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf")}) format('truetype');
+                  }
+                  `}</style>
+                  ) : null}
+                  <StatusBar style="auto" backgroundColor="#F3E38B" />
+                  <Layout />
+                </React.Fragment>
+              </PaperProvider>
+            </AppProvider>
+          </PracticeModalProvider>
+        </AuthProvider>
+      </View>
     </SafeAreaProvider>
   );
 }

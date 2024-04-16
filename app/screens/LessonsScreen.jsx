@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import { Avatar, Card, Modal, Text, IconButton } from "react-native-paper";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import AddLesson from "../modals/AddLesson.jsx";
 import Loading from "../components/Loading.jsx";
 import { formatDate } from "../utils/dateUtils.js";
@@ -46,13 +47,21 @@ const LessonsScreen = ({ navigation, selectLesson }) => {
                   <Card.Title
                     title="Lesson"
                     subtitle={`${item.duration} min`}
-                    left={(props) => (
-                      <Avatar.Icon
-                        {...props}
-                        icon="bugle"
-                        backgroundColor="pink"
-                      />
+                    left={() => (
+                      <View style={styles.iconContainer}>
+                        <MaterialCommunityIcons
+                          name="bugle"
+                          color="white"
+                          size={30}
+                        />
+                      </View>
+                      // <Avatar.Icon // no good for web
+                      //   {...props}
+                      //   icon="bugle"
+                      //   backgroundColor="pink"
+                      // />
                     )}
+                    leftStyle={{ width: 50, marginRight: 26 }}
                     right={() => (
                       <Text>
                         {new Date(item.lesson_timestamp).toLocaleTimeString(
@@ -110,6 +119,13 @@ const styles = StyleSheet.create({
   modalContainer: {
     backgroundColor: "white",
     padding: 20,
+  },
+  iconContainer: {
+    backgroundColor: "pink",
+    width: 50,
+    height: 50,
+    borderRadius: 35,
+    padding: 10,
   },
 });
 
