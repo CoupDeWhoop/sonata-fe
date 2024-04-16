@@ -9,7 +9,7 @@ const AsyncStorageTest = () => {
   const saveText = async () => {
     try {
       await AsyncStorage.setItem("@myText", inputText);
-      Alert.alert("Text saved successfully!");
+      console.log("saved succesfully", inputText);
     } catch (error) {
       console.error("Error saving text:", error);
       Alert.alert("Error", "Failed to save text. Please try again.");
@@ -21,7 +21,7 @@ const AsyncStorageTest = () => {
       const text = await AsyncStorage.getItem("@myText");
       if (text !== null) {
         setSavedText(text);
-        Alert.alert("Saved Text", text);
+        console.log(text, "retrieved");
       } else {
         Alert.alert("No Text Found", "No text has been saved yet.");
       }
@@ -32,7 +32,7 @@ const AsyncStorageTest = () => {
   };
 
   return (
-    <View style={{}}>
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <TextInput
         style={{ borderWidth: 1, padding: 10, marginBottom: 10, width: 200 }}
         placeholder="Enter text to save"

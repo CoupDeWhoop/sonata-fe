@@ -15,8 +15,7 @@ export const getTokens = async () => {
 };
 
 export const refreshTokens = async () => {
-  const { refreshToken, accessToken } = await getTokens();
-  console.log("refreshToken", refreshToken, "access", accessToken);
+  const { refreshToken } = await getTokens();
   const { data } = await sonataApi.get(`/auth/refresh-token`, {
     headers: { Authorization: `Bearer ${refreshToken}` },
   });

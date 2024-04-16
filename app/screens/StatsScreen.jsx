@@ -119,7 +119,6 @@ const StatsScreen = () => {
             />
           </View>
         </View>
-        <AsyncStorageTest />
       </View>
     </ScrollView>
   );

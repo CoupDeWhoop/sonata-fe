@@ -22,8 +22,8 @@
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/alto-clef.png"
     },
-    "plugins": ["expo-secure-store"]
+    "plugins": []
   }
 }
