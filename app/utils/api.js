@@ -1,5 +1,5 @@
 import { sonataApi, configureAxiosHeader } from "./apiConfig";
-import { refreshTokens, setTokens } from "./auth";
+import { getTokens, refreshTokens, setTokens } from "./auth";
 
 export const handleTokenRefresh = async (apiCall) => {
   try {
@@ -105,6 +105,13 @@ export const postNewPractice = async (timestamp) => {
   return handleTokenRefresh(async () => {
     const { data } = await sonataApi.post("/practises", { timestamp });
     return data.practice;
+  });
+};
+
+export const deletePractice = async (practice_id) => {
+  return handleTokenRefresh(async () => {
+    const { data } = await sonataApi.delete(`/practises/${practice_id}`);
+    return data;
   });
 };
 

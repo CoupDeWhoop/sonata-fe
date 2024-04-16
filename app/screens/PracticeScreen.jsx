@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
-import { ScrollView, StyleSheet, View, TouchableOpacity } from "react-native";
-import { Text } from "react-native-paper";
+import { ScrollView, StyleSheet, View } from "react-native";
+import { Text, IconButton } from "react-native-paper";
 import { commonStyles } from "../../styles/common-styles";
 import { getAllNotes, postNewPractice } from "../utils";
 import Icon from "react-native-vector-icons/AntDesign.js";
 import { PracticeModalContext } from "../context/PracticeModalContext";
-import { LearningFocusList } from "../components/LearningFocusList";
-import NotesList from "../components/NotesList";
+import LearningFocusList from "../components/LearningFocusList";
+import NotesList from "../components/NotesList.jsx";
 import Loading from "../components/Loading";
 
-export default PracticeScreen = () => {
+const PracticeScreen = () => {
   const { setPracticeModalIsVisible, newPractice, setNewPractice } =
     useContext(PracticeModalContext);
   const [learningFocusList, setLearningFocusList] = useState(null);
@@ -68,14 +68,14 @@ export default PracticeScreen = () => {
           <NotesList notes={learningFocusList.list} />
         )}
       </ScrollView>
-      <TouchableOpacity style={styles.addButton}>
-        <Icon
-          name="pluscircle"
-          size={54}
-          color="tomato"
-          onPress={handleNewPracticePress}
-        />
-      </TouchableOpacity>
+
+      <IconButton
+        style={styles.addButton}
+        icon="plus-circle"
+        iconColor="crimson"
+        size={80}
+        onPress={handleNewPracticePress}
+      />
     </View>
   );
 };
@@ -87,7 +87,9 @@ const styles = StyleSheet.create({
   addButton: {
     zIndex: 9,
     position: "absolute",
-    bottom: 24,
-    right: 54,
+    bottom: 8,
+    right: 16,
   },
 });
+
+export default PracticeScreen;

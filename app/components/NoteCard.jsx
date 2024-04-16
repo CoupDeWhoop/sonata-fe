@@ -6,9 +6,10 @@ const NoteCard = ({ timestamp, lesson_id, learning_focus, note_content }) => {
   return (
     <View style={styles.layout}>
       <Card
-        style={{
-          backgroundColor: lesson_id ? "#D0F0C0" : "#B9D9EB",
-        }}
+        style={[
+          { backgroundColor: lesson_id ? "#D0F0C0" : "#B9D9EB" },
+          styles.card,
+        ]}
       >
         <Card.Title
           title={learning_focus}
@@ -52,6 +53,7 @@ const styles = StyleSheet.create({
   icon: {
     marginLeft: 10,
   },
+  card: { shadowColor: "transparent" },
 });
 
 export default NoteCard;

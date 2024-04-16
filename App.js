@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Platform } from "react-native";
 import { PaperProvider } from "react-native-paper";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -21,8 +21,18 @@ export default function App() {
         <PracticeModalProvider>
           <AppProvider>
             <PaperProvider>
-              <StatusBar style="auto" backgroundColor="#F3E38B" />
-              <Layout />
+              <React.Fragment>
+                {Platform.OS === "web" ? (
+                  <style type="text/css">{`
+                      @font-face {
+                        font-family: 'MaterialCommunityIcons';
+                        src: url(${require("react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf")}) format('truetype');
+                      }
+                    `}</style>
+                ) : null}
+                <StatusBar style="auto" backgroundColor="#F3E38B" />
+                <Layout />
+              </React.Fragment>
             </PaperProvider>
           </AppProvider>
         </PracticeModalProvider>

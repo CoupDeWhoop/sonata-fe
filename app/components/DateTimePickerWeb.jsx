@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-export default function DateTimePickerWeb({ date, setDate }) {
+const DateTimePickerWeb = ({ date, setDate }) => {
   return (
     <DatePicker
       selected={date}
@@ -12,4 +12,6 @@ export default function DateTimePickerWeb({ date, setDate }) {
       inline
     />
   );
-}
+};
+
+export default DateTimePickerWeb;

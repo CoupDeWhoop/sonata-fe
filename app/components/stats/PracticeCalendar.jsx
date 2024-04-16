@@ -3,7 +3,7 @@ import { ScrollView, View } from "react-native";
 import { useContext, useRef, useEffect } from "react";
 import { AppContext } from "../../context/AppProvider.jsx";
 
-export default PracticeCalendar = () => {
+const PracticeCalendar = () => {
   const { practises } = useContext(AppContext);
   const formattedPracticeData = practises.map((practice) => {
     return { date: practice.practice_timestamp };
@@ -32,3 +32,5 @@ export default PracticeCalendar = () => {
     </ScrollView>
   );
 };
+
+export default PracticeCalendar;

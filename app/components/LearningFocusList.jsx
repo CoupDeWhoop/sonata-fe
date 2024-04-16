@@ -3,11 +3,7 @@ import { FlatList, StyleSheet } from "react-native";
 import { Card, Text } from "react-native-paper";
 import Loading from "./Loading";
 
-export const LearningFocusList = ({
-  learningFocusList,
-  allNotes,
-  handlePress,
-}) => {
+const LearningFocusList = ({ learningFocusList, allNotes, handlePress }) => {
   const [learningTopics, setLearningTopics] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -67,3 +63,5 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffdae0",
   },
 });
+
+export default LearningFocusList;

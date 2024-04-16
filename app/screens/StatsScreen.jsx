@@ -1,10 +1,12 @@
 import React, { useContext, useState, useEffect } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, Platform, ScrollView } from "react-native";
 import PracticeCalendar from "../components/stats/PracticeCalendar.jsx";
 import { commonStyles } from "../../styles/common-styles.js";
 import StatsCard from "../components/stats/StatsCard.jsx";
 import { AppContext } from "../context/AppProvider.jsx";
 import Loading from "../components/Loading.jsx";
+import PracticeCalendarWeb from "../components/stats/PracticeCalendarWeb.jsx";
+import AsyncStorageTest from "../components/AsyncStorageTest.jsx";
 
 function calculateLongestStreak(practises) {
   if (!practises) return;
@@ -80,9 +82,9 @@ const StatsScreen = () => {
   }
 
   return (
-    <View style={commonStyles.layout}>
+    <ScrollView style={commonStyles.layout}>
       <View>
-        <PracticeCalendar />
+        {Platform.OS === "web" ? <PracticeCalendarWeb /> : <PracticeCalendar />}
         <View style={styles.gridContainer}>
           <View style={styles.gridItem}>
             <StatsCard
@@ -117,8 +119,9 @@ const StatsScreen = () => {
             />
           </View>
         </View>
+        <AsyncStorageTest />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

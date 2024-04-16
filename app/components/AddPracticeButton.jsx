@@ -1,7 +1,7 @@
 import { TouchableOpacity } from "react-native";
 import { postLesson } from "../utils/api";
 
-export default AddLessonButton = () => {
+const AddLessonButton = () => {
   const { setLessonModalIsVisible, setNewLesson } =
     useContext(LessonModalContext);
 
@@ -41,3 +41,5 @@ export default AddLessonButton = () => {
     </TouchableOpacity>
   );
 };
+
+export default AddLessonButton;

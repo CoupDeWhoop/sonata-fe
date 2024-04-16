@@ -8,30 +8,34 @@ import { LessonsStack } from "./LessonsStack.jsx";
 import AddPracticeModal from "../modals/AddPracticeModal.jsx";
 import { PracticeModalContext } from "../context/PracticeModalContext.jsx";
 import { Alert, View } from "react-native";
+import { deletePractice } from "../utils/api.js";
 
 const Tab = createBottomTabNavigator();
 
 export const MainNavigator = () => {
-  const { practiceModalIsVisible, setPracticeModalIsVisible, setNewPractice } =
-    useContext(PracticeModalContext);
+  const {
+    practiceModalIsVisible,
+    setPracticeModalIsVisible,
+    newPractice,
+    setNewPractice,
+  } = useContext(PracticeModalContext);
 
   const handleClose = async (practice_id) => {
-    setPracticeModalIsVisible(false);
-    setNewPractice({});
-    // try {
-    //     await deletePractice(practice_id)
-    //     setPracticeModalIsVisible(false)
-    // } catch (error) {
-    // console.error('An Error occured while cancelling the practice:', error);
-    // Alert.alert(
-    //     'Error',
-    //     'An error occurred while deleting the lesson. Please try again later.',
-    //     [
-    //         { text: 'OK', onPress: () => console.log('OK Pressed') }
-    //     ],
-    //     { cancelable: false }
-    // );
-    // }
+    console.log(practice_id, "passed up state");
+
+    try {
+      await deletePractice(practice_id);
+      setPracticeModalIsVisible(false);
+      setNewPractice({});
+    } catch (error) {
+      console.error("An Error occured while cancelling the practice:", error);
+      Alert.alert(
+        "Error",
+        "An error occurred while deleting the lesson. Please try again later.",
+        [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+        { cancelable: false }
+      );
+    }
   };
 
   return (
@@ -63,7 +67,7 @@ export const MainNavigator = () => {
           options={{
             tabBarLabel: "Journal",
             tabBarIcon: ({ color }) => (
-              <Icon name="book" color={color} size={26} />
+              <MaterialCommunityIcons name="book" color={color} size={26} />
             ),
           }}
         />
@@ -73,14 +77,18 @@ export const MainNavigator = () => {
           options={{
             tabBarLabel: "Stats",
             tabBarIcon: ({ color }) => (
-              <Icon name="barchart" color={color} size={26} />
+              <MaterialCommunityIcons
+                name="chart-bar"
+                color={color}
+                size={26}
+              />
             ),
           }}
         />
       </Tab.Navigator>
       <AddPracticeModal
         visible={practiceModalIsVisible}
-        onClose={() => handleClose(practice_id)}
+        onClose={handleClose}
       />
     </View>
   );

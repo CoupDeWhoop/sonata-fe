@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-export const Timer = () => {
+const Timer = () => {
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   useEffect(() => {
     const interval = setInterval(() => {
@@ -39,3 +39,5 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
+
+export default Timer;

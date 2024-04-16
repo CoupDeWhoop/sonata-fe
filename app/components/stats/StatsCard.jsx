@@ -1,6 +1,6 @@
 import { Avatar, Card, Text } from "react-native-paper";
 
-export default StatsCard = ({ color, icon, title, text }) => (
+const StatsCard = ({ color, icon, title, text }) => (
   <Card
     style={{
       flex: 1,
@@ -34,3 +34,5 @@ export default StatsCard = ({ color, icon, title, text }) => (
     </Card.Content>
   </Card>
 );
+
+export default StatsCard;

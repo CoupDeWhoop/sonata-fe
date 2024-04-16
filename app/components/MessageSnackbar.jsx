@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import { Snackbar } from "react-native-paper";
 
-export default MessageSnackbar = ({ message, setMessage }) => (
+const MessageSnackbar = ({ message, setMessage }) => (
   <View>
     <Snackbar
       visible={message}
@@ -14,3 +14,5 @@ export default MessageSnackbar = ({ message, setMessage }) => (
     </Snackbar>
   </View>
 );
+
+export default MessageSnackbar;

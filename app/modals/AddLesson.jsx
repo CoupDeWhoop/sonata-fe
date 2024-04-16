@@ -6,7 +6,7 @@ import { formatDate, formatTime, postLesson } from "../utils";
 import { AppContext } from "../context/AppProvider";
 import DateTimePickerWeb from "../components/DateTimePickerWeb";
 
-export default AddLesson = ({ setVisible }) => {
+const AddLesson = ({ setVisible }) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [date, setDate] = useState(new Date());
   const [duration, setDuration] = useState("20");
@@ -101,3 +101,5 @@ const styles = StyleSheet.create({
     marginVertical: 16,
   },
 });
+
+export default AddLesson;

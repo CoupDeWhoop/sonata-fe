@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useState, useCallback } from "react";
 import { View, ScrollView, Modal, StyleSheet, StatusBar } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { LearningFocusList } from "../components/LearningFocusList.jsx";
+import LearningFocusList from "../components/LearningFocusList.jsx";
 import { PracticeModalContext } from "../context/PracticeModalContext.jsx";
-import { Timer } from "../components/timer.jsx";
+import Timer from "../components/timer.jsx";
 import MessageSnackbar from "../components/MessageSnackbar.jsx";
 import {
   finishPractice,
@@ -24,7 +24,7 @@ const AddPracticeModal = ({ visible, onClose }) => {
   const [learningFocus, setLearningFocus] = useState("");
   const [noteContent, setNoteContent] = useState("");
   const [newPracticeNotes, setNewPracticeNotes] = useState([]);
-  const [message, setMessage] = useState("Error");
+  const [message, setMessage] = useState("");
   const [messageVisible, setMessageVisible] = useState(false);
   const [isSubmittingNote, setIsSubmittingNote] = useState(false);
   const { practice_id } = newPractice;
@@ -47,7 +47,7 @@ const AddPracticeModal = ({ visible, onClose }) => {
       }
     };
     if (newNote.practice_id) {
-      // avoids api call with {}
+      // only fetches notes after one added
       fetchPracticeNotes();
     }
   }, [newNote]);

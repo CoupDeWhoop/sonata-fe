@@ -1,9 +1,8 @@
 import React, { useContext, useState } from "react";
-import { FlatList, StyleSheet, View, TouchableOpacity } from "react-native";
-import { Avatar, Card, Modal, Text } from "react-native-paper";
+import { FlatList, StyleSheet, View } from "react-native";
+import { Avatar, Card, Modal, Text, IconButton } from "react-native-paper";
 import AddLesson from "../modals/AddLesson.jsx";
 import Loading from "../components/Loading.jsx";
-import Icon from "react-native-vector-icons/AntDesign.js";
 import { formatDate } from "../utils/dateUtils.js";
 import { AppContext } from "../context/AppProvider.jsx";
 
@@ -69,14 +68,13 @@ const LessonsScreen = ({ navigation, selectLesson }) => {
             );
           }}
         />
-        <TouchableOpacity style={styles.addButton}>
-          <Icon
-            name="pluscircle"
-            size={54}
-            color="tomato"
-            onPress={showModal}
-          />
-        </TouchableOpacity>
+        <IconButton
+          style={styles.addButton}
+          icon="plus-circle"
+          iconColor="crimson"
+          size={70}
+          onPress={showModal}
+        />
       </View>
       <Modal
         visible={visible}

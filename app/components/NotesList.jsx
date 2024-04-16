@@ -4,7 +4,7 @@ import { Text } from "react-native-paper";
 import { formatDate } from "../utils";
 import NoteCard from "./NoteCard";
 
-export default NotesList = ({ notes }) => {
+const NotesList = ({ notes }) => {
   let previousDate = null;
 
   return notes.map((note, index) => {
@@ -38,3 +38,5 @@ const styles = StyleSheet.create({
     paddingTop: 16,
   },
 });
+
+export default NotesList;

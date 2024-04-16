@@ -10,10 +10,10 @@ import {
   TextInput,
 } from "react-native-paper";
 import { formatDate, formatTime, postLessonNote } from "../utils";
-import { LearningFocusList } from "../components/LearningFocusList";
+import LearningFocusList from "../components/LearningFocusList";
 import { AppContext } from "../context/AppProvider";
 
-export default LessonDetailsScreen = ({ lesson }) => {
+const LessonDetailsScreen = ({ lesson }) => {
   const [errorVisible, setErrorVisible] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [learningFocus, setLearningFocus] = useState("");
@@ -177,3 +177,5 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
 });
+
+export default LessonDetailsScreen;
