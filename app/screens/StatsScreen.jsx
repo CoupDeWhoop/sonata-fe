@@ -6,7 +6,6 @@ import StatsCard from "../components/stats/StatsCard.jsx";
 import { AppContext } from "../context/AppProvider.jsx";
 import Loading from "../components/Loading.jsx";
 import PracticeCalendarWeb from "../components/stats/PracticeCalendarWeb.jsx";
-import AsyncStorageTest from "../components/AsyncStorageTest.jsx";
 
 function calculateLongestStreak(practises) {
   if (!practises) return;
@@ -17,11 +16,14 @@ function calculateLongestStreak(practises) {
 
   for (const practice of practises) {
     const practiceDate = getComparableDay(practice.practice_timestamp);
+    console.log(practiceDate - previousDate);
 
     if (previousDate && practiceDate - previousDate > 24 * 60 * 60 * 1000) {
       // more than a day
-    } else if (previousDate && practiceDate != previousDate) {
+      currentStreak = 1;
+    } else if (previousDate && practiceDate !== previousDate) {
       // only increment if not the same day
+      console.log();
       currentStreak++;
     }
     longestStreak = Math.max(longestStreak, currentStreak);
@@ -64,7 +66,7 @@ const StatsScreen = () => {
   if (totalPracticeinMins > 0 && totalPracticeinMins < 60) {
     totalToDisplay = `${totalPracticeinMins} mins`;
   } else if (totalPracticeinMins > 60) {
-    totalToDisplay = Math.round(totalPracticeinMins / 30) / 2; // to nearest half hour
+    totalToDisplay = `${Math.round(totalPracticeinMins / 30) / 2} hours`; // to nearest half hour
   }
 
   if (totalSessions > 0) {
