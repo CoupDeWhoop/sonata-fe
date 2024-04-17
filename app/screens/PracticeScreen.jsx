@@ -54,7 +54,7 @@ const PracticeScreen = () => {
   return (
     <View style={commonStyles.layout}>
       <Text variant="titleMedium" style={styles.heading}>
-        You have been working on ...
+        Recent practice ... (click to add/remove filter)
       </Text>
       <LearningFocusList
         learningFocusList={learningFocusList}
@@ -82,7 +82,7 @@ const PracticeScreen = () => {
 
 const styles = StyleSheet.create({
   heading: {
-    paddingBottom: 4,
+    paddingBottom: 8,
   },
   addButton: {
     zIndex: 9,

@@ -133,14 +133,16 @@ const AddPracticeModal = ({ visible, onClose }) => {
             <TextInput
               label="Learning Focus"
               value={learningFocus}
+              cursorColor="black"
               multiline={true}
               onChangeText={(text) => setLearningFocus(text)}
               contentStyle={{ backgroundColor: "white" }}
-              style={{ backgroundColor: "white" }} // needed for web
+              style={{ backgroundColor: "#FFF" }} // needed for web
             />
             <TextInput
               label="Notes"
               value={noteContent}
+              cursorColor="black"
               multiline={true}
               onChangeText={(text) => setNoteContent(text)}
               contentStyle={{ backgroundColor: "white" }}
@@ -150,6 +152,7 @@ const AddPracticeModal = ({ visible, onClose }) => {
               mode="contained"
               disabled={isSubmittingNote}
               buttonColor="#B9D9EB"
+              textColor="black"
               onPress={() => handleAddNote()}
             >
               Add note
@@ -176,6 +179,7 @@ const AddPracticeModal = ({ visible, onClose }) => {
             <View style={styles.submitButtons}>
               <Button
                 mode="outlined"
+                buttonColor="#6CC1F1"
                 labelStyle={{ fontSize: 12 }}
                 onPress={() => onClose(practice_id)}
               >
@@ -183,6 +187,7 @@ const AddPracticeModal = ({ visible, onClose }) => {
               </Button>
               <Button
                 mode="contained"
+                buttonColor="#6CC1F1"
                 contentStyle={{ width: 90 }}
                 labelStyle={{ fontSize: 12 }}
                 onPress={() => completePractice()}

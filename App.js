@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { View, StyleSheet, Platform } from "react-native";
-import { PaperProvider } from "react-native-paper";
+import { PaperProvider, DefaultTheme } from "react-native-paper";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
@@ -12,6 +12,17 @@ import { PracticeModalProvider } from "./app/context/PracticeModalContext";
 import { AppProvider } from "./app/context/AppProvider";
 import { RegisterScreen } from "./app/screens/RegisterScreen";
 
+const theme = {
+  ...DefaultTheme,
+  roundness: 2,
+  colors: {
+    ...DefaultTheme.colors,
+    // primary: "#3498db",
+    primary: "#FFF",
+    // accent: "#f1c40f",
+  },
+};
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -21,7 +32,7 @@ export default function App() {
         <AuthProvider>
           <PracticeModalProvider>
             <AppProvider>
-              <PaperProvider>
+              <PaperProvider theme={theme}>
                 <React.Fragment>
                   {Platform.OS === "web" ? (
                     <style type="text/css">{`

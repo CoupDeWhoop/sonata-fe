@@ -21,9 +21,10 @@ const NoteCard = ({ timestamp, lesson_id, learning_focus, note_content }) => {
               <Avatar.Icon
                 {...props}
                 icon="bugle"
+                color="black"
                 size={32}
                 style={styles.icon}
-                backgroundColor="pink"
+                backgroundColor="white"
               />
             </View>
           )}

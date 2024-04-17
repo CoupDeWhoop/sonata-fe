@@ -16,14 +16,12 @@ function calculateLongestStreak(practises) {
 
   for (const practice of practises) {
     const practiceDate = getComparableDay(practice.practice_timestamp);
-    console.log(practiceDate - previousDate);
 
     if (previousDate && practiceDate - previousDate > 24 * 60 * 60 * 1000) {
       // more than a day
       currentStreak = 1;
     } else if (previousDate && practiceDate !== previousDate) {
       // only increment if not the same day
-      console.log();
       currentStreak++;
     }
     longestStreak = Math.max(longestStreak, currentStreak);

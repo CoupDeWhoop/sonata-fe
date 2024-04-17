@@ -104,7 +104,11 @@ const LessonDetailsScreen = ({ lesson }) => {
           <Icon source="fountain-pen-tip" color={MD2Colors.grey500} size={40} />
         </View>
       </View>
-      <Button mode={"contained"} onPress={() => setModalVisible(true)}>
+      <Button
+        style={{ backgroundColor: "#3498db" }}
+        mode={"contained"}
+        onPress={() => setModalVisible(true)}
+      >
         Add Note
       </Button>
       <Modal
