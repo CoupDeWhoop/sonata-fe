@@ -3,6 +3,7 @@ import { View, StyleSheet, FlatList, ScrollView } from "react-native";
 import {
   Button,
   Card,
+  Icon,
   MD2Colors,
   Modal,
   Snackbar,
@@ -89,6 +90,20 @@ const LessonDetailsScreen = ({ lesson }) => {
           </View>
         )}
       />
+      <View style={{ flex: 1 }}>
+        <Text
+          style={{
+            textAlign: "center",
+            lineHeight: 20,
+            color: MD2Colors.grey500,
+          }}
+        >
+          Add some notes {`\n`}from your lesson
+        </Text>
+        <View style={{ flex: 1, alignItems: "center", marginTop: 10 }}>
+          <Icon source="fountain-pen-tip" color={MD2Colors.grey500} size={40} />
+        </View>
+      </View>
       <Button mode={"contained"} onPress={() => setModalVisible(true)}>
         Add Note
       </Button>
