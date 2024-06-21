@@ -1,5 +1,7 @@
 # Sonata
 
+Try it out [here](https://sonata-app.netlify.app/)
+
 I've been building an app in React Native that helps music students to organise their practice. They are able to link their work to their lessons by looking at recent notes from lessons and practices and browse by the learning focus of that session. So a particular piece or area of technique.
 
 Statistics are displayed on stats Tab.
